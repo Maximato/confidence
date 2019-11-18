@@ -3,8 +3,9 @@ from Bio import SeqIO
 from Consensus import Consensus
 from HTML import HTML
 
-file_name = "./TBEV_nuc_Aligned.fasta"
-seqs = list(SeqIO.parse(file_name, "fasta"))
+file_name1 = "./TBEV_nuc_Aligned.fasta"
+file_name2 = "./DQ112_aligned.fasta"
+seqs = list(SeqIO.parse(file_name2, "fasta"))
 
 N = len(seqs[1].seq)
 
