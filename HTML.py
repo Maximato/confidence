@@ -27,9 +27,8 @@ class HTML:
         groups = consensus["groups"]
         for i in range(len(symbols)):
             html += self.classes[groups[i]] + symbols[i] + "</span>"
-
-        html += "</body>\n</html>"
-
+            # add line break
+            if i % 60 == 0:
+                html += "<br>\n"
+        html += "\n</body>\n</html>"
         return html
-    
-print(HTML().get_header())

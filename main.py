@@ -1,8 +1,7 @@
 # confidence calculation
-
-from Bio.Blast import NCBIXML
 from Bio import SeqIO
-
+from Consensus import Consensus
+from HTML import HTML
 
 file_name = "./TBEV_nuc_Aligned.fasta"
 seqs = list(SeqIO.parse(file_name, "fasta"))
@@ -60,31 +59,7 @@ for l, record in enumerate(seqs):
         else:
             counts[nucl][d] += 1
 
-# calculating of confidence from counts
-consensus = {
-    "symbol": [],
-    "confidence": []
-}
+consensus = Consensus(counts)
+sdcg = consensus.confidence_calc()
 
-for p in range(N):
-    summ = 0
-    max_score = 0
-    symbol = None
-    for key in counts:
-        count = counts[key][p]
-        summ += count
-        if count > max_score:
-            max_score = count
-            symbol = key
-
-    if summ == 0:
-        confidence = 0
-    else:
-        confidence = max_score/summ
-
-    consensus["symbol"].append(symbol)
-    consensus["confidence"].append(confidence)
-
-
-print(consensus["symbol"])
-print(consensus["confidence"])
+print(HTML().create_consensus(sdcg))
