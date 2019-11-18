@@ -3,8 +3,9 @@ from Bio import SeqIO
 from Consensus import Consensus
 from HTML import HTML
 
-file_name = "./TBEV_nuc_Aligned.fasta"
-seqs = list(SeqIO.parse(file_name, "fasta"))
+file_name1 = "./TBEV_nuc_Aligned.fasta"
+file_name2 = "./DQ112_aligned.fasta"
+seqs = list(SeqIO.parse(file_name2, "fasta"))
 
 N = len(seqs[1].seq)
 
@@ -61,5 +62,7 @@ for l, record in enumerate(seqs):
 
 consensus = Consensus(counts)
 sdcg = consensus.confidence_calc()
+print(sdcg["deeps"])
 
-print(HTML().create_consensus(sdcg))
+with open("consensus.html", "w") as f:
+    f.write(HTML().create_consensus(sdcg))
