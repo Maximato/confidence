@@ -61,5 +61,7 @@ for l, record in enumerate(seqs):
 
 consensus = Consensus(counts)
 sdcg = consensus.confidence_calc()
+print(sdcg["deeps"])
 
-print(HTML().create_consensus(sdcg))
+with open("consensus.html", "w") as f:
+    f.write(HTML().create_consensus(sdcg))
