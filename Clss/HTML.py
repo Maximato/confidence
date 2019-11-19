@@ -15,7 +15,7 @@ class HTML:
     }
 
     @staticmethod
-    def get_header(file_name="./header.txt"):
+    def get_header(file_name="Clss/header.txt"):
         with open(file_name, "r") as f:
             header = f.read()
         return header

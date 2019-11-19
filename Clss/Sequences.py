@@ -1,15 +1,11 @@
 from Bio import SeqIO
+from Clss.Fasta import Fasta
 
-estimated_size = 10000
 
-
-class Sequences:
-    @staticmethod
-    def extract_from(filename):
-        return list(SeqIO.parse(filename, "fasta"))
+class Sequences(Fasta):
 
     @staticmethod
-    def group_seqs(lseqs):
+    def group_seqs(lseqs, estimated_size=10000):
         groups = {"cds": []}
         for record in lseqs:
             seq_id = record.id
