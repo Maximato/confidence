@@ -1,5 +1,7 @@
 from Bio import SeqIO
 from Clss.Fasta import Fasta
+import os
+from os.path import join
 
 
 class Sequences(Fasta):
@@ -21,6 +23,8 @@ class Sequences(Fasta):
         return groups
 
     @staticmethod
-    def write_groups(groups):
+    def write_groups(groups, directory):
+        if not os.path.isdir(directory):
+            os.mkdir(directory)
         for key in groups:
-            SeqIO.write(groups[key], "./Groups/Sequences/" + key + ".fasta", "fasta")
+            SeqIO.write(groups[key], join(directory, key + ".fasta"), "fasta")
