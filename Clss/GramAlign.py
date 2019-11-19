@@ -1,21 +1,30 @@
+from os.path import join, basename, abspath
 import os
 
 
 class GramAlign:
     @staticmethod
-    def run_gram_align(filename):
-        command = "GramAlign -i " + filename + " -o " + filename[:-6] + "_aln.fasta -f 2"
+    def run_gram_align(filename, odir=""):
+        bname = basename(filename)
+        opath = join(abspath(odir), bname[:-6] + "_aln.fasta")
+        command = "GramAlign -i " + filename + " -o " + opath + " -f 2"
         print(command)
         #os.system(command)
 
     @staticmethod
-    def run_for_all_in(directory):
+    def run_for_all_in(directory, odir=""):
         ga = GramAlign()
         files = os.listdir(directory)
         for file in files:
-            ga.run_gram_align(file)
+            apath = join(abspath(directory), file)
+            ga.run_gram_align(apath, odir)
 
 
-ga = GramAlign()
-ga.run_gram_align("file.fasta")
-ga.run_for_all_in("Groups")
+"""
+# testing
+path = join(os.path.abspath(""), "edfs")
+print(path)
+print(os.path.basename(path))
+print(os.path.basename("PycharmProjects\confidence\Clss\edfs"))
+"""
+

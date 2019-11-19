@@ -28,7 +28,7 @@ class HTML:
         for i in range(len(symbols)):
             html += self.classes[groups[i]] + symbols[i] + "</span>"
             # add line break
-            if i % 121 == 0 and i != 0:
+            if (i+1) % 121 == 0:
                 html += "<br>\n"
         html += "\n</body>\n</html>"
         return html

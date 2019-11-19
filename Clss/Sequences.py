@@ -23,10 +23,4 @@ class Sequences(Fasta):
     @staticmethod
     def write_groups(groups):
         for key in groups:
-            SeqIO.write(groups[key], "./Groups/" + key + ".fasta", "fasta")
-
-
-sequences = Sequences()
-records = sequences.extract_from("./TBEV_all_nucleotides.fasta")
-groups = sequences.group_seqs(records)
-sequences.write_groups(groups)
+            SeqIO.write(groups[key], "./Groups/Sequences/" + key + ".fasta", "fasta")

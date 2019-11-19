@@ -2,18 +2,33 @@
 from Clss.Consensus import Consensus
 from Clss.HTML import HTML
 from Clss.Aligns import Aligns
+from Clss.Sequences import Sequences
+from Clss.GramAlign import GramAlign
+import os
 
-file_name1 = "./TBEV_nuc_Aligned.fasta"
-file_name2 = "Data/DQ112_aligned.fasta"
+all_nucl = "Data/TBEV_all_nucleotides.fasta"
+
+# grouping nucleotides
+sequences = Sequences()
+records = sequences.extract_from(all_nucl)
+groups = sequences.group_seqs(records)
+sequences.write_groups(groups)
+
+# running GramAlign for all groped sequences
+ga = GramAlign()
+ga.run_gram_align("file.fasta")
+ga.run_for_all_in("Groups/Sequences", "Groups/Aligns")
 
 
 aligns = Aligns()
-seqs = aligns.extract_from(file_name2)
-counts = aligns.counts_calc(seqs)
+files = os.listdir("Groups/Aligns")
+for file in files:
+    seqs = aligns.extract_from("Groups/Aligns/" + file)
+    counts = aligns.counts_calc(seqs)
 
-consensus = Consensus(counts)
-sdcg = consensus.confidence_calc()
-print(sdcg["deeps"])
+    consensus = Consensus(counts)
+    sdcg = consensus.confidence_calc()
+    print(sdcg["deeps"])
 
-with open("consensus.html", "w") as f:
-    f.write(HTML().create_consensus(sdcg))
+    with open("Groups/Consensuses/" + file[0:5] + ".html", "w") as f:
+        f.write(HTML().create_consensus(sdcg))
