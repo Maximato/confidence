@@ -3,7 +3,7 @@ from Clss.Fasta import Fasta
 from Clss.Sequences import Sequences
 from Clss.GramAlign import GramAlign
 import os
-from os.path import join
+from os.path import join, basename, dirname
 
 
 def grouping(nucl_fasta, outdir):
@@ -27,28 +27,40 @@ def filtr_nucl_by(nucl_fasta, out_file, organism):
     sequences.write_to(fseqs, out_file)
 
 
-def aligns_to_consensus(aligns_dir, outdir):
+def align_to_consensus(align_fasta, outdir=None):
+    seqs = Aligns.extract_from(align_fasta)
+    name = basename(align_fasta)
+
+    if outdir is None:
+        outdir = dirname(align_fasta)
+
+    align = Aligns(seqs, id=name[:-5], name=name[:-5], description="consensus")
+    consensus = align.get_consensus()
+
+    # writing html
+    with open(join(outdir, name[:-5] + "_cons.html"), "w") as f:
+        f.write(align.get_html_consensus(consensus))
+
+    # writing seq record as fasta
+    fn = join(outdir, name[:-5] + "_cons.fasta")
+    align.write_to(align.get_seq_record_consensus(consensus), fn)
+
+
+def aligns_to_consensuses(aligns_dir, outdir):
+    if not os.path.isdir(outdir):
+        os.mkdir(outdir)
+
     files = os.listdir(aligns_dir)
     for file in files:
-        seqs = Fasta.extract_from(join(aligns_dir, file))
-        align = Aligns(seqs, id=file[0:5], name=file[0:5], description="consensus")
-        consensus = align.get_consensus()
-        print(consensus["deeps"])
-
-        if not os.path.isdir(outdir):
-            os.mkdir(outdir)
-
-        # writing html
-        with open(join(outdir, file[0:5] + ".html"), "w") as f:
-            f.write(align.get_html_consensus(consensus))
-
-        # writing seq record as fasta
-        fn = join(outdir, file[0:5] + ".fasta")
-        align.write_to(align.get_seq_record_consensus(consensus), fn)
+        align_to_consensus(join(aligns_dir, file), outdir)
 
 
+"""
 # filtrating
 organism = "tick-borne encephalitis virus"
-filtr_nucl_by("Data/TBEV.fasta", "Data/fTBEV.fasta", organism)
+filtr_nucl_by("Data/rTBEV.fasta", "Data/TBEV.fasta", organism)
+"""
+
+align_to_consensus("Data/TBEV_align.fasta")
 
 #run("Groups/Aligns", "Groups/Consensuses/")
