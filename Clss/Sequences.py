@@ -30,9 +30,13 @@ class Sequences(Fasta):
             SeqIO.write(groups[key], join(directory, key + ".fasta"), "fasta")
 
     @staticmethod
-    def filtr_by_organizm(lseqs, organizm):
+    def filtr_by(lseqs, organizm, minsize=100):
+        print("Initially number of sequences: ", len(lseqs))
         fseqs = []
         for record in lseqs:
-            if organizm in record.description:
-                fseqs.append(record)
+            description = record.description.lower()
+            if organizm in description and len(record.seq) >= minsize:
+                if "chimeric" not in description:
+                    fseqs.append(record)
+        print("Number of sequences after filtrating: ", len(fseqs))
         return fseqs
