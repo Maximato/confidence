@@ -18,7 +18,8 @@ CLASSES = {
     "c90": '<span class="c90">'
 }
 
-HTML_HEADER = "Clss/header.txt"
+CONF_HTML_HEADER = "Clss/header_for_confidence.txt"
+DEEP_HTML_HEADER = "Clss/header_for_deeps.txt"
 
 
 def get_html_header(file_name):
@@ -169,12 +170,13 @@ class Aligns(Fasta):
         return consensus
 
     def get_html_consensus(self, consensus, coloring="c", ignore_gaps=False, ignore_level=0.9):
-        html = get_html_header(HTML_HEADER)
 
         symbols = consensus["symbols"]
         if coloring == "c":
+            html = get_html_header(CONF_HTML_HEADER)
             cls = consensus["ccls"]
         elif coloring == "d":
+            html = get_html_header(DEEP_HTML_HEADER)
             cls = consensus["dcls"]
         else:
             raise ValueError("coloring should be 'c' (for confidence) or 'd' (for deeps)")

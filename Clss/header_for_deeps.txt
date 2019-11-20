@@ -1,0 +1,32 @@
+<html>
+<head>
+<title>GramAlign: Consensus Sequence</title>
+<style type="text/css">
+.c00 {font-family: courier; font-size: 12px; background-color: #000000; color: #CCCCCC;}
+.c01 {font-family: courier; font-size: 12px; background-color: #FF0000; color: #CCCCCC;}
+.c10 {font-family: courier; font-size: 12px; background-color: #FF0099; color: #CCCCCC;}
+.c20 {font-family: courier; font-size: 12px; background-color: #FF00FF; color: #CCCCCC;}
+.c30 {font-family: courier; font-size: 12px; background-color: #0000FF; color: #CCCCCC;}
+.c40 {font-family: courier; font-size: 12px; background-color: #0099FF; color: #333333;}
+.c50 {font-family: courier; font-size: 12px; background-color: #00FFFF; color: #333333;}
+.c60 {font-family: courier; font-size: 12px; background-color: #00FF00; color: #333333;}
+.c70 {font-family: courier; font-size: 12px; background-color: #99FF00; color: #333333;}
+.c80 {font-family: courier; font-size: 12px; background-color: #FFFF00; color: #333333;}
+.c90 {font-family: courier; font-size: 12px; background-color: #FFFFFF; color: #333333;}
+</style>
+</head>
+<body>
+<br>
+Legend (x is the deep of the column in the alignment):<br><br>
+<span class="c00">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp x =&nbsp 0 &nbsp</span><br>
+<span class="c01">&nbsp&nbsp 0 &lt&nbsp x &lt 10 &nbsp</span><br>
+<span class="c10">&nbsp 10 &lt= x &lt 20 &nbsp</span><br>
+<span class="c20">&nbsp 20 &lt= x &lt 30 &nbsp</span><br>
+<span class="c30">&nbsp 30 &lt= x &lt 40 &nbsp</span><br>
+<span class="c40">&nbsp 40 &lt= x &lt 50 &nbsp</span><br>
+<span class="c50">&nbsp 50 &lt= x &lt 60 &nbsp</span><br>
+<span class="c60">&nbsp 60 &lt= x &lt 70 &nbsp</span><br>
+<span class="c70">&nbsp 70 &lt= x &lt 80 &nbsp</span><br>
+<span class="c80">&nbsp 80 &lt= x &lt 90 &nbsp</span><br>
+<span class="c90">&nbsp 90 &lt= x&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</span><br><br>
+Consensus sequence:<br><br>
