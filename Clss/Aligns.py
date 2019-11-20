@@ -73,7 +73,7 @@ def get_dcls(deep):
         return "c70"
     elif 80 <= deep < 90:
         return "c80"
-    elif 100 <= deep:
+    elif 90 <= deep:
         return "c90"
 
 
@@ -86,6 +86,7 @@ class Aligns(Fasta):
         if not isinstance(description, basestring):
             raise TypeError("description argument should be a string")
         self._seqs = seqs
+        self.max_deep = len(seqs)
         self.n = len(seqs[1].seq)
         self.id = id
         self.name = name
@@ -99,15 +100,18 @@ class Aligns(Fasta):
             while record.seq[i] == "-":
                 i += 1
             # calculate end
-            j = self.n
+            j = self.n - 1
             while record.seq[j] == "-":
                 j -= 1
             content["starts"].append(i)
             content["ends"].append(j)
         return content
 
-    def counts_calc(self):
-        content = self.content_calc()
+    def counts_calc(self, full_length=True):
+        if full_length:
+            content = {"starts": [0 for _ in range(self.max_deep)], "ends": [self.n-1 for _ in range(self.max_deep)]}
+        else:
+            content = self.content_calc()
         # calculating of counts of nucleotides in alignment
         counts = {
             "A": [0 for _ in range(self.n)], "C": [0 for _ in range(self.n)],
@@ -116,7 +120,7 @@ class Aligns(Fasta):
         }
 
         for i, record in enumerate(self._seqs):
-            for j in range(content["starts"][i], content["ends"][i]):
+            for j in range(content["starts"][i], content["ends"][i] + 1):
                 nucl = record.seq[j]
                 if nucl not in "ACGT-":
                     if nucl == "M":
@@ -135,8 +139,8 @@ class Aligns(Fasta):
                     counts[nucl][j] += 1
         return counts
 
-    def get_consensus(self):
-        counts = self.counts_calc()
+    def get_consensus(self, full_length=True):
+        counts = self.counts_calc(full_length)
 
         # calculating of confidence from counts
         consensus = {"symbols": [], "deeps": [], "confidences": [], "ccls": [], "dcls": []}

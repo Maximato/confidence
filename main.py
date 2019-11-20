@@ -20,30 +20,60 @@ def align_groups(groups_dir, align_dir):
     ga.run_for_all_in(groups_dir, align_dir)
 
 
-def filtr_nucl_by(nucl_fasta, out_file, organism):
+def filtr_nucl_by(nucl_fasta, out_file, organism, minsize=100):
     sequences = Sequences()
     seqs = sequences.extract_from(nucl_fasta)
-    fseqs = sequences.filtr_by(seqs, organism)
+    fseqs = sequences.filtr_by(seqs, organism, minsize)
     sequences.write_to(fseqs, out_file)
 
 
-def align_to_consensus(align_fasta, outdir=None, ignore_gaps=False, ignore_level=0.9):
+def align_to_consensus(align_fasta, outdir=None):
     seqs = Aligns.extract_from(align_fasta)
     name = basename(align_fasta)[:-6]
 
     if outdir is None:
         outdir = dirname(align_fasta)
+    else:
+        if not os.path.isdir(outdir):
+            os.mkdir(outdir)
 
     align = Aligns(seqs, id=name, name=name, description="consensus")
-    consensus = align.get_consensus()
+    consensus_from_full = align.get_consensus(full_length=True)
+    consensus_from_part = align.get_consensus(full_length=False)
 
     # writing html
-    with open(join(outdir, name + "_cons.html"), "w") as f:
-        f.write(align.get_html_consensus(consensus, ignore_gaps, ignore_level))
+    # from full sequences
+    with open(join(outdir, name + "_ffcons_conf.html"), "w") as f:
+        f.write(align.get_html_consensus(consensus_from_full, "c", ignore_gaps=False))
+
+    with open(join(outdir, name + "_ffcons_deep.html"), "w") as f:
+        f.write(align.get_html_consensus(consensus_from_full, "d", ignore_gaps=False))
+
+    with open(join(outdir, name + "_ffcons_conf_ignore_gaps.html"), "w") as f:
+        f.write(align.get_html_consensus(consensus_from_full, "c", ignore_gaps=True, ignore_level=0.9))
+
+    # from part sequences
+    with open(join(outdir, name + "_fpcons_conf.html"), "w") as f:
+        f.write(align.get_html_consensus(consensus_from_part, "c", ignore_gaps=False))
+
+    with open(join(outdir, name + "_fpcons_deep.html"), "w") as f:
+        f.write(align.get_html_consensus(consensus_from_part, "d", ignore_gaps=False))
+
+    with open(join(outdir, name + "_fpcons_conf_ignore_gaps.html"), "w") as f:
+        f.write(align.get_html_consensus(consensus_from_part, "c", ignore_gaps=True, ignore_level=0.9))
 
     # writing seq record as fasta
-    fn = join(outdir, name + "_cons.fasta")
-    align.write_to(align.get_seq_record_consensus(consensus, ignore_gaps, ignore_level), fn)
+    # from full sequences
+    fn1 = join(outdir, name + "_ffcons.fasta")
+    align.write_to(align.get_seq_record_consensus(consensus_from_full, ignore_gaps=False), fn1)
+    fn2 = join(outdir, name + "_ffcons_ignore_gaps.fasta")
+    align.write_to(align.get_seq_record_consensus(consensus_from_full, ignore_gaps=True, ignore_level=0.9), fn2)
+
+    # from part sequences
+    fn1 = join(outdir, name + "_fpcons.fasta")
+    align.write_to(align.get_seq_record_consensus(consensus_from_part, ignore_gaps=False), fn1)
+    fn2 = join(outdir, name + "_fpcons_ignore_gaps.fasta")
+    align.write_to(align.get_seq_record_consensus(consensus_from_part, ignore_gaps=True, ignore_level=0.9), fn2)
 
 
 def aligns_to_consensuses(aligns_dir, outdir):
@@ -55,12 +85,15 @@ def aligns_to_consensuses(aligns_dir, outdir):
         align_to_consensus(join(aligns_dir, file), outdir)
 
 
-"""
 # filtrating
-organism = "tick-borne encephalitis virus"
-filtr_nucl_by("Data/rTBEV.fasta", "Data/TBEV.fasta", organism)
-"""
+#organism = "west nile virus"
+#filtr_nucl_by("Data/rWNV.fasta", "Data/WNV.fasta", organism, minsize=200)
 
-align_to_consensus("Data/TBEV_align.fasta", ignore_gaps=True)
+ga = GramAlign()
+ga.run_gram_align("Data/WNW.fasta")
+ga.run_gram_align("Data/WNV_full_genome.fasta")
+
+#align_to_consensus("Data/TBEV_full_genome_align.fasta", "Data/TBEV_full_genome")
+#align_to_consensus("Data/TBEV_align.fasta", "Data/TBEV")
 
 #run("Groups/Aligns", "Groups/Consensuses/")
