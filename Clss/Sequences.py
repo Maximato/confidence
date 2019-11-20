@@ -28,3 +28,11 @@ class Sequences(Fasta):
             os.mkdir(directory)
         for key in groups:
             SeqIO.write(groups[key], join(directory, key + ".fasta"), "fasta")
+
+    @staticmethod
+    def filtr_by_organizm(lseqs, organizm):
+        fseqs = []
+        for record in lseqs:
+            if organizm in record.description:
+                fseqs.append(record)
+        return fseqs
