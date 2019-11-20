@@ -138,28 +138,33 @@ class Aligns(Fasta):
             consensus["groups"].append(get_group(confidence))
         return consensus
 
-    def get_html_consensus(self, consensus):
+    def get_html_consensus(self, consensus, ignore_gaps=False, ignore_level=0.9):
         html = get_html_header(HTML_HEADER)
 
         symbols = consensus["symbols"]
         groups = consensus["groups"]
+        br_count = 1
         for i in range(self.n):
-            html += CLASSES[groups[i]] + symbols[i] + "</span>"
-            # add line break
-            if (i+1) % 121 == 0:
-                html += "<br>\n"
+            if symbols[i] == "-" and ignore_gaps and consensus["confidences"][i] > ignore_level:
+                pass
+            else:
+                html += CLASSES[groups[i]] + symbols[i] + "</span>"
+                # add line break
+                if br_count % 121 == 0:
+                    html += "<br>\n"
+                br_count += 1
         html += "\n</body>\n</html>"
         return html
 
-    def get_str_consensus(self, consensus, ignore_gaps=False, conf_of_gap_ignoring=0.9):
+    def get_str_consensus(self, consensus, ignore_gaps=False, ignore_level=0.9):
         str_consensus = ""
         for i, symbol in enumerate(consensus["symbols"]):
-            if symbol == "-" and ignore_gaps and consensus["confidences"][i] > conf_of_gap_ignoring:
+            if symbol == "-" and ignore_gaps and consensus["confidences"][i] > ignore_level:
                 pass
             else:
                 str_consensus += symbol
         return str_consensus
 
-    def get_seq_record_consensus(self, consensus):
-        srt_consensus = self.get_str_consensus(consensus)
+    def get_seq_record_consensus(self, consensus, ignore_gaps=False, ignore_level=0.9):
+        srt_consensus = self.get_str_consensus(consensus, ignore_gaps, ignore_level)
         return SeqRecord(Seq(srt_consensus), id=self.id, name=self.name, description=self.description)

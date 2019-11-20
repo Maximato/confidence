@@ -27,23 +27,23 @@ def filtr_nucl_by(nucl_fasta, out_file, organism):
     sequences.write_to(fseqs, out_file)
 
 
-def align_to_consensus(align_fasta, outdir=None):
+def align_to_consensus(align_fasta, outdir=None, ignore_gaps=False, ignore_level=0.9):
     seqs = Aligns.extract_from(align_fasta)
-    name = basename(align_fasta)
+    name = basename(align_fasta)[:-6]
 
     if outdir is None:
         outdir = dirname(align_fasta)
 
-    align = Aligns(seqs, id=name[:-5], name=name[:-5], description="consensus")
+    align = Aligns(seqs, id=name, name=name, description="consensus")
     consensus = align.get_consensus()
 
     # writing html
-    with open(join(outdir, name[:-5] + "_cons.html"), "w") as f:
-        f.write(align.get_html_consensus(consensus))
+    with open(join(outdir, name + "_cons.html"), "w") as f:
+        f.write(align.get_html_consensus(consensus, ignore_gaps, ignore_level))
 
     # writing seq record as fasta
-    fn = join(outdir, name[:-5] + "_cons.fasta")
-    align.write_to(align.get_seq_record_consensus(consensus), fn)
+    fn = join(outdir, name + "_cons.fasta")
+    align.write_to(align.get_seq_record_consensus(consensus, ignore_gaps, ignore_level), fn)
 
 
 def aligns_to_consensuses(aligns_dir, outdir):
@@ -61,6 +61,6 @@ organism = "tick-borne encephalitis virus"
 filtr_nucl_by("Data/rTBEV.fasta", "Data/TBEV.fasta", organism)
 """
 
-align_to_consensus("Data/TBEV_align.fasta")
+align_to_consensus("Data/TBEV_align.fasta", ignore_gaps=True)
 
 #run("Groups/Aligns", "Groups/Consensuses/")
