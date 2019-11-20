@@ -27,7 +27,7 @@ def get_html_header(file_name):
     return header
 
 
-def get_group(confidence):
+def get_ccls(confidence):
     if confidence == 0:
         return "c00"
     elif 0 < confidence < 0.1:
@@ -49,6 +49,31 @@ def get_group(confidence):
     elif 0.8 <= confidence < 0.9:
         return "c80"
     elif 0.9 <= confidence:
+        return "c90"
+
+
+def get_dcls(deep):
+    if deep == 0:
+        return "c00"
+    elif 0 < deep < 10:
+        return "c01"
+    elif 10 <= deep < 20:
+        return "c10"
+    elif 20 <= deep < 30:
+        return "c20"
+    elif 30 <= deep < 40:
+        return "c30"
+    elif 40 <= deep < 50:
+        return "c40"
+    elif 50 <= deep < 60:
+        return "c50"
+    elif 60 <= deep < 70:
+        return "c60"
+    elif 70 <= deep < 80:
+        return "c70"
+    elif 80 <= deep < 90:
+        return "c80"
+    elif 100 <= deep:
         return "c90"
 
 
@@ -74,7 +99,7 @@ class Aligns(Fasta):
             while record.seq[i] == "-":
                 i += 1
             # calculate end
-            j = self.n - 1
+            j = self.n
             while record.seq[j] == "-":
                 j -= 1
             content["starts"].append(i)
@@ -90,31 +115,31 @@ class Aligns(Fasta):
             "-": [0 for _ in range(self.n)]
         }
 
-        for l, record in enumerate(self._seqs):
-            for d in range(content["starts"][l], content["ends"][l]):
-                nucl = record.seq[d]
+        for i, record in enumerate(self._seqs):
+            for j in range(content["starts"][i], content["ends"][i]):
+                nucl = record.seq[j]
                 if nucl not in "ACGT-":
                     if nucl == "M":
-                        counts["A"][d] += 1
-                        counts["C"][d] += 1
+                        counts["A"][j] += 0.5
+                        counts["C"][j] += 0.5
                     if nucl == "K":
-                        counts["G"][d] += 1
-                        counts["T"][d] += 1
+                        counts["G"][j] += 0.5
+                        counts["T"][j] += 0.5
                     if nucl == "R":
-                        counts["A"][d] += 1
-                        counts["G"][d] += 1
+                        counts["A"][j] += 0.5
+                        counts["G"][j] += 0.5
                     if nucl == "Y":
-                        counts["C"][d] += 1
-                        counts["T"][d] += 1
+                        counts["C"][j] += 0.5
+                        counts["T"][j] += 0.5
                 else:
-                    counts[nucl][d] += 1
+                    counts[nucl][j] += 1
         return counts
 
     def get_consensus(self):
         counts = self.counts_calc()
 
         # calculating of confidence from counts
-        consensus = {"symbols": [], "deeps": [], "confidences": [], "groups": []}
+        consensus = {"symbols": [], "deeps": [], "confidences": [], "ccls": [], "dcls": []}
 
         for i in range(self.n):
             summ = 0
@@ -135,20 +160,26 @@ class Aligns(Fasta):
             consensus["symbols"].append(symbol)
             consensus["deeps"].append(summ)
             consensus["confidences"].append(confidence)
-            consensus["groups"].append(get_group(confidence))
+            consensus["ccls"].append(get_ccls(confidence))
+            consensus["dcls"].append(get_dcls(summ))
         return consensus
 
-    def get_html_consensus(self, consensus, ignore_gaps=False, ignore_level=0.9):
+    def get_html_consensus(self, consensus, coloring="c", ignore_gaps=False, ignore_level=0.9):
         html = get_html_header(HTML_HEADER)
 
         symbols = consensus["symbols"]
-        groups = consensus["groups"]
+        if coloring == "c":
+            cls = consensus["ccls"]
+        elif coloring == "d":
+            cls = consensus["dcls"]
+        else:
+            raise ValueError("coloring should be 'c' (for confidence) or 'd' (for deeps)")
         br_count = 1
         for i in range(self.n):
             if symbols[i] == "-" and ignore_gaps and consensus["confidences"][i] > ignore_level:
                 pass
             else:
-                html += CLASSES[groups[i]] + symbols[i] + "</span>"
+                html += CLASSES[cls[i]] + symbols[i] + "</span>"
                 # add line break
                 if br_count % 121 == 0:
                     html += "<br>\n"
