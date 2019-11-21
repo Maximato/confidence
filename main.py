@@ -6,10 +6,10 @@ import os
 from os.path import join, basename, dirname
 
 
-def grouping(nucl_fasta, outdir):
+def grouping(nucl_fasta, outdir, min_genome_size):
     sequences = Sequences()
     records = sequences.extract_from(nucl_fasta)
-    groups = sequences.group_seqs(records)
+    groups = sequences.group_seqs(records, min_genome_size)
     sequences.write_groups(groups, outdir)
 
 
@@ -85,15 +85,22 @@ def aligns_to_consensuses(aligns_dir, outdir):
         align_to_consensus(join(aligns_dir, file), outdir)
 
 
+
 # filtrating
-#organism = "west nile virus"
-#filtr_nucl_by("Data/rWNV.fasta", "Data/WNV_full_genome.fasta", organism, minsize=1000)
+tbev = "tick-borne encephalitis virus"
+wnv = "west nile virus"
+filtr_nucl_by("Data/rTBEV.fasta", "Data/TBEV.fasta", tbev, minsize=100)
+filtr_nucl_by("Data/rWNV.fasta", "Data/WNV.fasta", wnv, minsize=100)
+
+grouping("Data/WNV.fasta", "Data/Groups/WNV_sequences", 10000)
+grouping("Data/TBEV.fasta", "Data/Groups/TBEV_sequences", 10000)
+
 
 ga = GramAlign()
-ga.run_gram_align("Data/WNV.fasta")
-ga.run_gram_align("Data/WNV_full_genome.fasta")
+ga.run_for_all_in("Data/Groups/WNV_sequences", "Data/Groups/WNV_aligns")
+ga.run_for_all_in("Data/Groups/TBEV_sequences", "Data/Groups/TBEV_aligns")
 
-#align_to_consensus("Data/WNV_full_genome_aln.fasta", "Data/WNV_full_genome")
-#align_to_consensus("Data/WNV_aln.fasta", "Data/WNV")
+#align_to_consensus("Data/WNV_full_genome/WNV_full_genome_align.fasta", "Data/WNV_full_genome")
+#align_to_consensus("Data/WNV/WNV_align.fasta", "Data/WNV")
 
 #run("Groups/Aligns", "Groups/Consensuses/")

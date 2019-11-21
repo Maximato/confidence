@@ -16,7 +16,7 @@ class GramAlign:
 
         command = ga_path + " -i " + filename + " -o " + opath + " -f 2"
         print(command)
-        # os.system(command)
+        os.system(command)
 
     @staticmethod
     def run_for_all_in(directory, odir=""):
