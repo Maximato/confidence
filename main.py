@@ -87,13 +87,13 @@ def aligns_to_consensuses(aligns_dir, outdir):
 
 # filtrating
 #organism = "west nile virus"
-#filtr_nucl_by("Data/rWNV.fasta", "Data/WNV.fasta", organism, minsize=200)
+#filtr_nucl_by("Data/rWNV.fasta", "Data/WNV_full_genome.fasta", organism, minsize=1000)
 
-#ga = GramAlign()
-#ga.run_gram_align("Data/WNW.fasta")
-#ga.run_gram_align("Data/WNV_full_genome.fasta")
+ga = GramAlign()
+ga.run_gram_align("Data/WNV.fasta")
+ga.run_gram_align("Data/WNV_full_genome.fasta")
 
-align_to_consensus("Data/TBEV_full_genome_align.fasta", "Data/TBEV_full_genome")
-align_to_consensus("Data/TBEV_align.fasta", "Data/TBEV")
+#align_to_consensus("Data/WNV_full_genome_aln.fasta", "Data/WNV_full_genome")
+#align_to_consensus("Data/WNV_aln.fasta", "Data/WNV")
 
 #run("Groups/Aligns", "Groups/Consensuses/")

@@ -58,23 +58,23 @@ def get_dcls(deep):
         return "c00"
     elif 0 < deep < 10:
         return "c01"
-    elif 10 <= deep < 20:
+    elif 10 <= deep < 200:
         return "c10"
-    elif 20 <= deep < 30:
+    elif 200 <= deep < 300:
         return "c20"
-    elif 30 <= deep < 40:
+    elif 300 <= deep < 400:
         return "c30"
-    elif 40 <= deep < 50:
+    elif 400 <= deep < 500:
         return "c40"
-    elif 50 <= deep < 60:
+    elif 500 <= deep < 600:
         return "c50"
-    elif 60 <= deep < 70:
+    elif 600 <= deep < 700:
         return "c60"
-    elif 70 <= deep < 80:
+    elif 700 <= deep < 800:
         return "c70"
-    elif 80 <= deep < 90:
+    elif 800 <= deep < 900:
         return "c80"
-    elif 90 <= deep:
+    elif 900 <= deep:
         return "c90"
 
 

@@ -20,13 +20,13 @@
 Legend (x is the deep of the column in the alignment):<br><br>
 <span class="c00">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp x =&nbsp 0 &nbsp</span><br>
 <span class="c01">&nbsp&nbsp 0 &lt&nbsp x &lt 10 &nbsp</span><br>
-<span class="c10">&nbsp 10 &lt= x &lt 20 &nbsp</span><br>
-<span class="c20">&nbsp 20 &lt= x &lt 30 &nbsp</span><br>
-<span class="c30">&nbsp 30 &lt= x &lt 40 &nbsp</span><br>
-<span class="c40">&nbsp 40 &lt= x &lt 50 &nbsp</span><br>
-<span class="c50">&nbsp 50 &lt= x &lt 60 &nbsp</span><br>
-<span class="c60">&nbsp 60 &lt= x &lt 70 &nbsp</span><br>
-<span class="c70">&nbsp 70 &lt= x &lt 80 &nbsp</span><br>
-<span class="c80">&nbsp 80 &lt= x &lt 90 &nbsp</span><br>
-<span class="c90">&nbsp 90 &lt= x&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</span><br><br>
+<span class="c10">&nbsp 10 &lt= x &lt 200 &nbsp</span><br>
+<span class="c20">&nbsp 200 &lt= x &lt 300 &nbsp</span><br>
+<span class="c30">&nbsp 300 &lt= x &lt 400 &nbsp</span><br>
+<span class="c40">&nbsp 400 &lt= x &lt 500 &nbsp</span><br>
+<span class="c50">&nbsp 500 &lt= x &lt 600 &nbsp</span><br>
+<span class="c60">&nbsp 600 &lt= x &lt 700 &nbsp</span><br>
+<span class="c70">&nbsp 700 &lt= x &lt 800 &nbsp</span><br>
+<span class="c80">&nbsp 800 &lt= x &lt 900 &nbsp</span><br>
+<span class="c90">&nbsp 900 &lt= x&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</span><br><br>
 Consensus sequence:<br><br>

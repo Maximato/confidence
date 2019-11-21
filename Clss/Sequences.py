@@ -36,7 +36,7 @@ class Sequences(Fasta):
         for record in lseqs:
             description = record.description.lower()
             if organizm in description and len(record.seq) >= minsize:
-                if "chimeric" not in description:
+                if ("chimeric" not in description) and ("chimera" not in description):
                     fseqs.append(record)
         print("Number of sequences after filtrating: ", len(fseqs))
         return fseqs
