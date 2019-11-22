@@ -3,6 +3,9 @@ from Clss.Fasta import Fasta
 from Bio import SeqIO
 from Bio.Seq import Seq
 from Bio.SeqRecord import SeqRecord
+from Bio import pairwise2
+from Bio.pairwise2 import format_alignment
+from copy import deepcopy
 
 CLASSES = {
     "c00": '<span class="c00">',
@@ -108,6 +111,23 @@ class Aligns(Fasta):
             content["ends"].append(j)
         return content
 
+    def count(self, nucl, counts, i):
+        if nucl not in "ACGT-":
+            if nucl == "M":
+                counts["A"][i] += 0.5
+                counts["C"][i] += 0.5
+            if nucl == "K":
+                counts["G"][i] += 0.5
+                counts["T"][i] += 0.5
+            if nucl == "R":
+                counts["A"][i] += 0.5
+                counts["G"][i] += 0.5
+            if nucl == "Y":
+                counts["C"][i] += 0.5
+                counts["T"][i] += 0.5
+        else:
+            counts[nucl][i] += 1
+
     def counts_calc(self, full_length=True):
         if full_length:
             content = {"starts": [0 for _ in range(self.max_deep)], "ends": [self.n-1 for _ in range(self.max_deep)]}
@@ -123,25 +143,12 @@ class Aligns(Fasta):
         for i, record in enumerate(self._seqs):
             for j in range(content["starts"][i], content["ends"][i] + 1):
                 nucl = record.seq[j]
-                if nucl not in "ACGT-":
-                    if nucl == "M":
-                        counts["A"][j] += 0.5
-                        counts["C"][j] += 0.5
-                    if nucl == "K":
-                        counts["G"][j] += 0.5
-                        counts["T"][j] += 0.5
-                    if nucl == "R":
-                        counts["A"][j] += 0.5
-                        counts["G"][j] += 0.5
-                    if nucl == "Y":
-                        counts["C"][j] += 0.5
-                        counts["T"][j] += 0.5
-                else:
-                    counts[nucl][j] += 1
+                self.count(nucl, counts, j)
         return counts
 
-    def get_consensus(self, full_length=True):
-        counts = self.counts_calc(full_length)
+    def get_consensus(self, counts=None, full_length=True):
+        if counts is None:
+            counts = self.counts_calc(full_length)
 
         # calculating of confidence from counts
         consensus = {"symbols": [], "deeps": [], "confidences": [], "ccls": [], "dcls": []}
@@ -205,3 +212,21 @@ class Aligns(Fasta):
     def get_seq_record_consensus(self, consensus, ignore_gaps=False, ignore_level=0.9):
         srt_consensus = self.get_str_consensus(consensus, ignore_gaps, ignore_level)
         return SeqRecord(Seq(srt_consensus), id=self.id, name=self.name, description=self.description)
+
+    def local_align(self, counts, seqs):
+        consensus = self.get_consensus(counts, full_length=True)
+        str_consensus = self.get_str_consensus(consensus, ignore_gaps=False)
+        # new_consensus = deepcopy(consensus)
+        new_counts = deepcopy(counts)
+        k = 0
+        for seq in seqs:
+            print(k)
+            k += 1
+            align = pairwise2.align.localxs(str_consensus, seq, -2, -1, one_alignment_only=1)
+            template = align[0][1]
+            start = align[0][3]
+            end = align[0][4]
+            for i in range(start-1, end):
+                nucl = template[i]
+                self.count(nucl, new_counts, i)
+        return new_counts
