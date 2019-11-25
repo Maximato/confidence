@@ -23,7 +23,7 @@ def align_groups(groups_dir, align_dir):
 def filtr_nucl_by(nucl_fasta, out_file, organism, minsize=100):
     sequences = Sequences()
     seqs = sequences.extract_from(nucl_fasta)
-    fseqs = sequences.filtr_by(seqs, organism, minsize)
+    fseqs = sequences.filtr_organizm_by_minsize(seqs, organism, minsize)
     sequences.write_to(fseqs, out_file)
 
 

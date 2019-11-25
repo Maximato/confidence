@@ -220,7 +220,7 @@ class Aligns(Fasta):
         new_counts = deepcopy(counts)
         k = 0
         for seq in seqs:
-            print(k)
+            print(f"calculated {k} from {len(seqs)}")
             k += 1
             align = pairwise2.align.localxs(str_consensus, seq, -2, -1, one_alignment_only=1)
             template = align[0][1]
