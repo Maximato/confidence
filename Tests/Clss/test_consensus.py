@@ -1,0 +1,38 @@
+from Clss.Model.Consensus import Consensus
+import unittest
+
+
+class TestConsensus(unittest.TestCase):
+    def test_get_consensus(self):
+        # setup data
+        counts = {"A": [2, 0, 0], "C": [0, 2, 0], "G": [0, 0, 0], "T": [0, 1, 2], "-": [1, 0, 1]}
+
+        # test function
+        consensus = Consensus.get_consensus(counts)
+        print(consensus)
+
+        # assertion
+        self.assertIsNotNone(consensus)
+
+    def test_get_html_body(self):
+        # setup data
+        consensus = {"symbols": ["A", "C"], "deeps": [101, 5], "confidences": [0.62, 0.91],
+                     "ccls": ["c60", "c90"], "dcls": ["c10", "c01"]}
+
+        # test function
+        s = Consensus.get_html_body(consensus)
+
+        # assertion
+        expected = '<span class="c60">A</span><span class="c90">C</span>\n</body>\n</html>'
+        self.assertEqual(expected, s)
+
+    def test_get_str_consensus(self):
+        # setup data
+        consensus = {"symbols": ["A", "C"], "deeps": [101, 5], "confidences": [0.62, 0.91],
+                     "ccls": ["c60", "c90"], "dcls": ["c10", "c01"]}
+
+        # test function
+        s = Consensus.get_str_consensus(consensus)
+
+        # assertion
+        self.assertEqual("AC", s)

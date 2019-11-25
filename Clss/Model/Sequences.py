@@ -1,15 +1,15 @@
 from Bio import SeqIO
-from Clss.Fasta import Fasta
 import os
 from os.path import join
 
 
-class Sequences(Fasta):
+class Sequences:
+    def __init__(self, seqs):
+        self.seqs = seqs
 
-    @staticmethod
-    def group_seqs(lseqs, estimated_size=10000):
+    def group(self, estimated_size=10000):
         groups = {"cds": []}
-        for record in lseqs:
+        for record in self.seqs:
             seq_id = record.id
             group_id = seq_id[0:2]
             length = len(record.seq)
@@ -23,18 +23,10 @@ class Sequences(Fasta):
         print("Number of groups: ", len(groups))
         return groups
 
-    @staticmethod
-    def write_groups(groups, directory):
-        if not os.path.isdir(directory):
-            os.mkdir(directory)
-        for key in groups:
-            SeqIO.write(groups[key], join(directory, key + ".fasta"), "fasta")
-
-    @staticmethod
-    def filtr_organizm_by_size(lseqs, organizm, minsize, maxsize):
-        print("Initially number of sequences: ", len(lseqs))
+    def filtr_organizm_by_size(self, organizm, minsize, maxsize):
+        print("Initially number of sequences: ", len(self.seqs))
         fseqs = []
-        for record in lseqs:
+        for record in self.seqs:
             description = record.description.lower()
             if organizm in description and (minsize <= len(record.seq) <= maxsize):
                 if ("chimeric" not in description) and ("chimera" not in description):

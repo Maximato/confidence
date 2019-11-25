@@ -1,19 +1,11 @@
 # confidence calculation
-from Clss.Aligns import Aligns
-from Clss.Sequences import Sequences
-from Clss.GramAlign import GramAlign
-from Clss.Fasta import Fasta
-from Bio import pairwise2
-from Bio.pairwise2 import format_alignment
-from Bio.AlignIO import read
-import time
-import os
-
+from Clss.Model.Alignment import Alignment
+from Clss.Model.Sequences import Sequences
 
 sequences = Sequences()
 cds_seqs = sequences.extract_from("Data/Groups/TBEV_aligns/cds_aln.fasta")
-align = Aligns(cds_seqs)
-counts = align.counts_calc(full_length=True)
+align = Alignment(cds_seqs)
+counts = align.get_counts(full_length=True)
 consensus = align.get_consensus(counts)
 with open("consensus.html", "w") as f:
     f.write(align.get_html_consensus(consensus))
