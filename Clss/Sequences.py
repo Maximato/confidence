@@ -11,7 +11,7 @@ class Sequences(Fasta):
         groups = {"cds": []}
         for record in lseqs:
             seq_id = record.id
-            group_id = seq_id[0:5]
+            group_id = seq_id[0:2]
             length = len(record.seq)
             if length > estimated_size:
                 groups["cds"].append(record)
@@ -20,6 +20,7 @@ class Sequences(Fasta):
                     groups[group_id].append(record)
                 else:
                     groups[group_id] = [record]
+        print("Number of groups: ", len(groups))
         return groups
 
     @staticmethod
