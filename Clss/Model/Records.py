@@ -1,8 +1,3 @@
-from Bio.Seq import Seq
-import os
-from os.path import join
-
-
 class Records:
     def __init__(self, records):
         self.records = records

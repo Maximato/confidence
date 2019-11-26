@@ -1,6 +1,5 @@
-from Bio.SeqRecord import SeqRecord
 from Bio.Seq import Seq
-from Clss.Classification import *
+from Clss.FileSys.Classification import *
 
 
 class Consensus:

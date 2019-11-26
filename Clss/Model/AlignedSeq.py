@@ -1,6 +1,3 @@
-from Bio import Seq
-
-
 class AlignedSeq:
     @staticmethod
     def content_calc(seq):

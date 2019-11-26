@@ -1,7 +1,3 @@
-from Bio import pairwise2
-from copy import deepcopy
-
-
 class Alignment:
     @staticmethod
     def count(nucl, counts, i):

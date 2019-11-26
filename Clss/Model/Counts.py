@@ -1,6 +1,6 @@
 from Clss.Model.Alignment import Alignment
 from Clss.Model.Consensus import Consensus
-from Clss.Classification import *
+from Clss.FileSys.Classification import *
 from copy import deepcopy
 from Bio import pairwise2
 

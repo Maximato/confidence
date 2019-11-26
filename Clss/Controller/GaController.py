@@ -1,13 +1,13 @@
-from Clss.Model.Alignment import Alignment
-from Bio import SeqIO
-from Clss.Model.Consensus import Consensus
-from Clss.Model.Records import Records
-from Clss.GramAlign import GramAlign
-import os
-from os.path import join, basename, dirname
+from Clss.FileSys.GramAlign import GramAlign
 
 
 class GaController:
+
+    @staticmethod
+    def align(filename, outfile):
+        ga = GramAlign()
+        ga.run_gram_align(filename, outfile)
+
     @staticmethod
     def align_groups(groups_dir, align_dir):
         # running GramAlign for all groped sequences

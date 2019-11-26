@@ -1,16 +1,18 @@
-# filtrating
-#organism = "west nile virus"
-#filtr_nucl_by("Data/rWNV.fasta", "Data/WNV_full_genome.fasta", organism, minsize=1000)
+from Clss.Controller.AlignController import AlignController
+from Clss.Controller.GaController import GaController
+from Clss.Controller.RecordsController import RecordsController
 
-#ga = GramAlign()
-#ga.run_gram_align("Data/WNV.fasta")
-#ga.run_gram_align("Data/WNV_full_genome.fasta")
+from Clss.Extractor.Extractor import Extractor
 
-#align_to_consensus("Data/Aligns_compare/TBEV_mscl_align.fasta", "Data/Aligns_compare2")
-#align_to_consensus("Data/Aligns_compare/TBEV_ga_align.fasta", "Data/Aligns_compare")
-#align_to_consensus("Data/Aligns_compare/TBEV_clustalo_align.fasta", "Data/Aligns_compare")
+from Clss.Model.Counts import Counts
+from Clss.Model.Alignment import Alignment
+from Clss.Model.Consensus import Consensus
+from Clss.Model.AlignedSeq import AlignedSeq
+from Clss.Model.Records import Records
 
-#align_to_consensus("Data/Groups/WNV_aligns/AF_aln.fasta", "Data/clustalo")
-#align_to_consensus("Data/WNV_aln.fasta", "Data/WNV")
 
-#run("Groups/Aligns", "Groups/Consensuses/")
+#ga_controller = GaController()
+#ga_controller.align_groups("Data/Groups/TBEV_sequences", "Data/Groups/TBEV_aligns_")
+
+ac = AlignController()
+ac.convert_in_all_combinations("Data/Groups/TBEV_aligns/cds_aln.fasta", "dir", "cds")

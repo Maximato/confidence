@@ -1,4 +1,4 @@
-from os.path import join, basename, abspath
+from os.path import join, basename, abspath, dirname
 import os
 
 ga_path = "~/GRAMALIGN/src/GramAlign"
@@ -6,15 +6,13 @@ ga_path = "~/GRAMALIGN/src/GramAlign"
 
 class GramAlign:
     @staticmethod
-    def run_gram_align(filename, odir="."):
+    def run_gram_align(filename, outfile):
+        dname = dirname(outfile)
         # creating output directory
-        if not os.path.isdir(odir):
-            os.mkdir(odir)
+        if not os.path.isdir(dname):
+            os.mkdir(dname)
 
-        bname = basename(filename)
-        opath = join(abspath(odir), bname[:-6] + "_aln.fasta")
-
-        command = ga_path + " -i " + filename + " -o " + opath + " -f 2"
+        command = ga_path + " -i " + filename + " -o " + outfile + " -f 2"
         print(command)
         os.system(command)
 
@@ -22,10 +20,14 @@ class GramAlign:
     def run_for_all_in(directory, odir=""):
         ga = GramAlign()
         files = os.listdir(directory)
-        for file in files:
-            apath = join(abspath(directory), file)
-            ga.run_gram_align(apath, odir)
+        for filename in files:
+            path = join(directory, filename)
+            outfile = join(odir, f"{filename.split('.')[0]}_aln.fasta")
+            ga.run_gram_align(path, outfile)
 
+
+"""l = "dfv.fff"
+print(l.split("."))"""
 
 """
 # testing
