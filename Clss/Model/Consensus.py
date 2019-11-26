@@ -5,35 +5,6 @@ from Clss.Classification import *
 
 class Consensus:
     @staticmethod
-    def get_consensus(counts):
-        # calculating of confidence from counts
-        consensus = {"symbols": [], "deeps": [], "confidences": [], "ccls": [], "dcls": []}
-
-        n = len(counts["A"])
-        for i in range(n):
-            summ = 0
-            max_score = 0
-            symbol = "-"
-            for key in counts:
-                count = counts[key][i]
-                summ += count
-                if count > max_score:
-                    max_score = count
-                    symbol = key
-
-            if summ == 0:
-                confidence = 1
-            else:
-                confidence = max_score / summ
-
-            consensus["symbols"].append(symbol)
-            consensus["deeps"].append(summ)
-            consensus["confidences"].append(confidence)
-            consensus["ccls"].append(get_ccls(confidence))
-            consensus["dcls"].append(get_dcls(summ))
-        return consensus
-
-    @staticmethod
     def get_html_body(consensus, coloring="c", ignore_gaps=False, ignore_level=0.9):
         symbols = consensus["symbols"]
         if coloring == "c":

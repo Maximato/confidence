@@ -1,8 +1,8 @@
 # confidence calculation
 from Clss.Model.Alignment import Alignment
-from Clss.Model.Sequences import Sequences
+from Clss.Model.Records import Records
 
-sequences = Sequences()
+sequences = Records()
 cds_seqs = sequences.extract_from("Data/Groups/TBEV_aligns/cds_aln.fasta")
 align = Alignment(cds_seqs)
 counts = align.get_counts(full_length=True)
@@ -12,7 +12,7 @@ with open("consensus.html", "w") as f:
 
 organism = "tick-borne encephalitis virus"
 all_seqs = sequences.extract_from("Data/TBEV.fasta")
-short_seqs = sequences.filtr_organizm_by_size(all_seqs, organism, 100, 10000)
+short_seqs = sequences.filtr_organism_by_size(all_seqs, organism, 100, 10000)
 
 new_counts = align.local_align(counts, short_seqs)
 new_consensus = align.get_consensus(new_counts, full_length=True)

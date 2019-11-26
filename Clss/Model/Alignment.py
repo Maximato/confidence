@@ -6,18 +6,53 @@ class Alignment:
     @staticmethod
     def count(nucl, counts, i):
         if nucl not in "ACGT-":
-            if nucl == "M":
+            # base represent 2
+            if nucl == "W":
+                counts["A"][i] += 0.5
+                counts["T"][i] += 0.5
+            elif nucl == "S":
+                counts["G"][i] += 0.5
+                counts["C"][i] += 0.5
+            elif nucl == "M":
                 counts["A"][i] += 0.5
                 counts["C"][i] += 0.5
-            if nucl == "K":
+            elif nucl == "K":
                 counts["G"][i] += 0.5
                 counts["T"][i] += 0.5
-            if nucl == "R":
+            elif nucl == "R":
                 counts["A"][i] += 0.5
                 counts["G"][i] += 0.5
-            if nucl == "Y":
+            elif nucl == "Y":
                 counts["C"][i] += 0.5
                 counts["T"][i] += 0.5
+            # base represent 3
+            elif nucl == "B":
+                counts["C"][i] += 0.33
+                counts["G"][i] += 0.33
+                counts["T"][i] += 0.33
+            elif nucl == "D":
+                counts["A"][i] += 0.33
+                counts["G"][i] += 0.33
+                counts["T"][i] += 0.33
+            elif nucl == "H":
+                counts["A"][i] += 0.33
+                counts["C"][i] += 0.33
+                counts["T"][i] += 0.33
+            elif nucl == "V":
+                counts["A"][i] += 0.33
+                counts["C"][i] += 0.33
+                counts["G"][i] += 0.33
+            # any nucleotide
+            elif nucl == "N":
+                counts["A"][i] += 0.25
+                counts["C"][i] += 0.25
+                counts["G"][i] += 0.25
+                counts["T"][i] += 0.25
+            # zero nucleotide
+            elif nucl == "Z":
+                counts["-"][i] += 1
+            else:
+                print("Warning! Undefined nucleotide")
         else:
             counts[nucl][i] += 1
 
@@ -48,21 +83,3 @@ class Alignment:
                     nucl = als.seq[i]
                     self.count(nucl, counts, i)
         return counts
-
-    def local_align(self, counts, seqs):
-        consensus = self.get_consensus(counts, full_length=True)
-        str_consensus = self.get_str_consensus(consensus, ignore_gaps=False)
-        # new_consensus = deepcopy(consensus)
-        new_counts = deepcopy(counts)
-        k = 0
-        for seq in seqs:
-            print(f"calculated {k} from {len(seqs)}")
-            k += 1
-            align = pairwise2.align.localxs(str_consensus, seq, -2, -1, one_alignment_only=1)
-            template = align[0][1]
-            start = align[0][3]
-            end = align[0][4]
-            for i in range(start-1, end):
-                nucl = template[i]
-                self.count(nucl, new_counts, i)
-        return new_counts

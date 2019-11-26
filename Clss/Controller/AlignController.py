@@ -1,6 +1,6 @@
 from Clss.Model.Alignment import Alignment
 from Clss.Model.Consensus import Consensus
-from Clss.Model.Sequences import Sequences
+from Clss.Model.Records import Records
 from Clss.Controller.ConsensusController import ConsensusController
 from Clss.GramAlign import GramAlign
 import os

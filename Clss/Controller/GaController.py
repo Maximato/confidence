@@ -1,7 +1,7 @@
 from Clss.Model.Alignment import Alignment
 from Bio import SeqIO
 from Clss.Model.Consensus import Consensus
-from Clss.Model.Sequences import Sequences
+from Clss.Model.Records import Records
 from Clss.GramAlign import GramAlign
 import os
 from os.path import join, basename, dirname

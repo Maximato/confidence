@@ -3,16 +3,6 @@ import unittest
 
 
 class TestConsensus(unittest.TestCase):
-    def test_get_consensus(self):
-        # setup data
-        counts = {"A": [2, 0, 0], "C": [0, 2, 0], "G": [0, 0, 0], "T": [0, 1, 2], "-": [1, 0, 1]}
-
-        # test function
-        consensus = Consensus.get_consensus(counts)
-        print(consensus)
-
-        # assertion
-        self.assertIsNotNone(consensus)
 
     def test_get_html_body(self):
         # setup data
