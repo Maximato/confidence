@@ -1,5 +1,5 @@
 import unittest
-from Clss.FileSys.Classification import *
+from Clss.Model.Classification import *
 
 
 class TestAligns(unittest.TestCase):

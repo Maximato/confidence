@@ -1,18 +1,3 @@
-CLASSES = {
-    "c00": '<span class="c00">',
-    "c01": '<span class="c01">',
-    "c10": '<span class="c10">',
-    "c20": '<span class="c20">',
-    "c30": '<span class="c30">',
-    "c40": '<span class="c40">',
-    "c50": '<span class="c50">',
-    "c60": '<span class="c60">',
-    "c70": '<span class="c70">',
-    "c80": '<span class="c80">',
-    "c90": '<span class="c90">'
-}
-
-
 def get_ccls(confidence):
     if confidence == 0:
         return "c00"

@@ -1,4 +1,3 @@
-from Clss.Model.Consensus import Consensus
 import unittest
 
 

@@ -1,7 +1,6 @@
-from Clss.Model.Consensus import Consensus
 from Clss.Model.Counts import Counts
-from Clss.FileSys.Classification import *
-from copy import deepcopy
+from Clss.Model.Classification import *
+from Clss.Model.Consensus import Consensus
 from Bio import pairwise2
 
 
@@ -35,7 +34,7 @@ class Alignment:
         if counts is None:
             counts = self.__get_counts(full_length)
         # calculating of confidence from counts
-        consensus = {"symbols": [], "deeps": [], "confidences": [], "ccls": [], "dcls": []}
+        consensus = Consensus({"symbols": [], "deeps": [], "confidences": [], "ccls": [], "dcls": []})
 
         n = counts.n
         for i in range(n):
@@ -64,7 +63,7 @@ class Alignment:
     def consensus_with(self, seqs, full_length=True):
         counts = self.__get_counts(full_length)
         consensus = self.get_consensus(counts=counts)
-        str_consensus = Consensus.get_str_consensus(consensus, ignore_gaps=False)
+        str_consensus = consensus.get_str_consensus(ignore_gaps=False)
         # new_consensus = deepcopy(consensus)
         k = 0
         for seq in seqs:
