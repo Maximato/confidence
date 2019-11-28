@@ -18,12 +18,11 @@ class GramAlign:
 
     @staticmethod
     def run_for_all_in(directory, odir=""):
-        ga = GramAlign()
         files = os.listdir(directory)
         for filename in files:
             path = join(directory, filename)
             outfile = join(odir, f"{filename.split('.')[0]}_aln.fasta")
-            ga.run_gram_align(path, outfile)
+            GramAlign.run_gram_align(path, outfile)
 
 
 """l = "dfv.fff"

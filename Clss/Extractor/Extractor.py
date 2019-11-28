@@ -27,9 +27,10 @@ class Extractor:
     def recs_extractor(filename):
         return list(SeqIO.parse(filename, "fasta"))
 
-    @staticmethod
+"""    @staticmethod
     def align_extractor(filename):
         recs = Extractor.recs_extractor(filename)
         aligned_seqs = [AlignedSeq(rec.seq) for rec in recs]
         align = Alignment(aligned_seqs)
         return align
+"""

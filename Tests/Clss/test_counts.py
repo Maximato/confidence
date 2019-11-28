@@ -3,23 +3,12 @@ from unittest import TestCase
 
 
 class TestCounts(TestCase):
-    def test_get_consensus(self):
-        # setup data
-        counts = Counts({"A": [2, 0, 0], "C": [0, 2, 0], "G": [0, 0, 0], "T": [0, 1, 2], "-": [1, 0, 1]})
+    def test_count(self):
+        counts = Counts(3)
+            #{"A": [0, 1, 0], "T": [0, 2, 1], "G": [1, 0, 0], "C": [0, 0, 0]}
 
-        # test function
-        consensus = counts.get_consensus()
-        print(consensus)
-
-        # assertion
-        self.assertIsNotNone(consensus)
-
-    def test_recount_with(self):
-        # setup data
-        counts = Counts({"A": [2, 0, 0], "C": [0, 2, 0], "G": [0, 0, 0], "T": [0, 1, 2], "-": [1, 0, 1]})
-
-        # test function
-        recount = counts.recount_with(["AT"])
-        print(recount)
-        # assertion
-        self.assertIsNotNone(recount)
+        counts.count("A", 1)
+        counts.count("-", 0)
+        #Alignment.count("T", counts, 0)
+        expected_counts = {"A": [0, 1, 0], "T": [0, 0, 0], "G": [0, 0, 0], "C": [0, 0, 0], "-": [1, 0, 0]}
+        self.assertEqual(expected_counts, counts.counts)

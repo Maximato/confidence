@@ -8,13 +8,13 @@ class AlignWriter:
         self.alignment = align
 
     def write_html_to(self, filename, full_length, coloring):
-        counts = Counts(self.alignment.get_counts(full_length))
+        counts = Counts(self.alignment.__get_counts(full_length))
         consensus = counts.get_consensus()
         cc = ConsensusWriter(consensus)
         cc.write_html_to(filename, coloring)
 
     def write_seqrec_to(self, filename, full_length):
-        counts = Counts(self.alignment.get_counts(full_length))
+        counts = Counts(self.alignment.__get_counts(full_length))
         consensus = counts.get_consensus()
         cc = ConsensusWriter(consensus)
         cc.write_seqrec_to(filename)

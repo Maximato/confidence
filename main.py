@@ -15,4 +15,6 @@ from Clss.Model.Records import Records
 #ga_controller.align_groups("Data/Groups/TBEV_sequences", "Data/Groups/TBEV_aligns_")
 
 ac = AlignController()
-ac.convert_in_all_combinations("Data/Groups/TBEV_aligns/cds_aln.fasta", "dir", "cds")
+#ac.convert_in_all_combinations("Data/Groups/TBEV_aligns/cds_aln.fasta", "dir", "cds")
+
+ac.consensus_with("Data/Groups/TBEV_aligns/cds_aln.fasta", "Data/Groups/TBEV_aligns/AB_aln.fasta", "mm.html")

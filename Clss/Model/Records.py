@@ -2,6 +2,12 @@ class Records:
     def __init__(self, records):
         self.records = records
 
+    def get_seqs(self):
+        seqs = []
+        for record in self.records:
+            seqs.append(record.seq)
+        return seqs
+
     def group(self, estimated_size=10000):
         groups = {"cds": []}
         for record in self.records:

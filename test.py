@@ -5,7 +5,7 @@ from Clss.Model.Records import Records
 sequences = Records()
 cds_seqs = sequences.extract_from("Data/Groups/TBEV_aligns/cds_aln.fasta")
 align = Alignment(cds_seqs)
-counts = align.get_counts(full_length=True)
+counts = align.__get_counts(full_length=True)
 consensus = align.get_consensus(counts)
 with open("consensus.html", "w") as f:
     f.write(align.get_html_consensus(consensus))
