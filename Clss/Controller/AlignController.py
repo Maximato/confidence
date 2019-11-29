@@ -1,5 +1,4 @@
 from Clss.Extractor.Extractor import Extractor
-from Clss.FileSys.AlignWriter import AlignWriter
 from Clss.Model.Alignment import Alignment
 from Clss.Model.AlignedSeq import AlignedSeq
 from Clss.FileSys.ConsensusWriter import ConsensusWriter
@@ -14,12 +13,11 @@ class AlignController:
         return Alignment(aligned_seqs)
 
     @staticmethod
-    def convert_to(filename, outfile, full_length, coloring, fmt="html"):
+    def convert_to(filename, outfile, full_length, coloring="c", fmt="html"):
 
         align = AlignController.__get_alignment_from(filename)
         consensus = align.get_consensus(full_length=full_length)
         ConsensusWriter(consensus).write(outfile, coloring, fmt)
-        #AlignWriter(align).write_html_to(outfile, full_length, coloring)
 
     @staticmethod
     def convert_in_all_combinations(filename, outdir, prefix):
@@ -27,10 +25,8 @@ class AlignController:
         consensus_full = align.get_consensus(full_length=True)
         consensus_part = align.get_consensus(full_length=False)
 
-        ConsensusWriter(consensus_full).write_all(outdir, prefix)
-        ConsensusWriter(consensus_part).write_all(outdir, prefix)
-
-        # AlignWriter(align).write_all_to(outdir, prefix) #outdir, basename(filename).split(".")[0])
+        ConsensusWriter(consensus_full).write_all(outdir, prefix, 0.9)
+        ConsensusWriter(consensus_part).write_all(outdir, prefix, 0.9)
 
     @staticmethod
     def consensus_with(align_file, seqs_file, outfile, fmt="html"):

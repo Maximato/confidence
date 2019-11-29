@@ -6,10 +6,10 @@ from Clss.Model.Records import Records
 class RecordsController:
 
     @staticmethod
-    def grouping(filename, esize, outdir):
+    def grouping(filename, size_of_genome, outdir):
         records = Records(Extractor.recs_extractor(filename))
 
-        groups = records.group(esize)
+        groups = records.group(size_of_genome)
         for key in groups:
             rw = RecordsWriter(groups[key])
             rw.write_to_dir(key + ".fasta", outdir)

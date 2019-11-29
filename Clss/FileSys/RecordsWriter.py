@@ -1,4 +1,5 @@
-from os.path import join, basename, abspath, dirname, isdir
+from Clss.FileSys.check_directory import check_dir
+from os.path import join, isdir
 from Bio import SeqIO
 import os
 
@@ -9,9 +10,7 @@ class RecordsWriter:
         self.records = records
 
     def write_to(self, filename):
-        dname = dirname(filename)
-        if not isdir(dname):
-            os.mkdir(dname)
+        check_dir(filename)
         SeqIO.write(self.records, filename, "fasta")
 
     def write_to_dir(self, basename, dirname):

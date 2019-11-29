@@ -1,4 +1,5 @@
-from os.path import join, basename, abspath, dirname
+from os.path import join, dirname
+from Clss.FileSys.check_directory import check_dir
 import os
 
 ga_path = "~/GRAMALIGN/src/GramAlign"
@@ -7,10 +8,8 @@ ga_path = "~/GRAMALIGN/src/GramAlign"
 class GramAlign:
     @staticmethod
     def run_gram_align(filename, outfile):
-        dname = dirname(outfile)
         # creating output directory
-        if not os.path.isdir(dname):
-            os.mkdir(dname)
+        check_dir(filename)
 
         command = ga_path + " -i " + filename + " -o " + outfile + " -f 2"
         print(command)
@@ -23,20 +22,3 @@ class GramAlign:
             path = join(directory, filename)
             outfile = join(odir, f"{filename.split('.')[0]}_aln.fasta")
             GramAlign.run_gram_align(path, outfile)
-
-
-"""l = "dfv.fff"
-print(l.split("."))"""
-
-"""
-# testing
-ga = GramAlign()
-ga.run_gram_align("sdgf", ".")
-
-
-path = join(os.path.abspath("."), "edfs")
-print(path)
-print(os.path.basename(path))
-print(os.path.basename("PycharmProjects\confidence\Clss\edfs"))
-"""
-

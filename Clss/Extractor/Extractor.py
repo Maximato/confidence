@@ -1,7 +1,4 @@
 from Bio import SeqIO
-from Clss.Model.Alignment import Alignment
-from Clss.Model.AlignedSeq import AlignedSeq
-from os.path import join, abspath, basename, dirname
 from definitions import *
 
 
@@ -26,11 +23,3 @@ class Extractor:
     @staticmethod
     def recs_extractor(filename):
         return list(SeqIO.parse(filename, "fasta"))
-
-"""    @staticmethod
-    def align_extractor(filename):
-        recs = Extractor.recs_extractor(filename)
-        aligned_seqs = [AlignedSeq(rec.seq) for rec in recs]
-        align = Alignment(aligned_seqs)
-        return align
-"""
