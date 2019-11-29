@@ -8,13 +8,13 @@ class Records:
             seqs.append(record.seq)
         return seqs
 
-    def group(self, estimated_size=10000):
+    def group(self, genome_min=9000, genome_max=12000):
         groups = {"cds": []}
         for record in self.records:
             rec_id = record.id
             group_id = rec_id[0:2]
             length = len(record.seq)
-            if length > estimated_size:
+            if genome_min < length < genome_max:
                 groups["cds"].append(record)
             else:
                 if group_id in groups.keys():

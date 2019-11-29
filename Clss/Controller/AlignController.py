@@ -13,11 +13,11 @@ class AlignController:
         return Alignment(aligned_seqs)
 
     @staticmethod
-    def convert_to(filename, outfile, full_length, coloring="c", fmt="html"):
+    def convert_to(filename, outfile, full_length, coloring="c", fmt="html", ignore_gaps=False, ignore_level=0.9):
 
         align = AlignController.__get_alignment_from(filename)
         consensus = align.get_consensus(full_length=full_length)
-        ConsensusWriter(consensus).write(outfile, coloring, fmt)
+        ConsensusWriter(consensus).write(outfile, coloring, fmt, ignore_gaps, ignore_level)
 
     @staticmethod
     def convert_in_all_combinations(filename, outdir, prefix):
