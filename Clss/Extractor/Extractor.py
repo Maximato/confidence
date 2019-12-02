@@ -23,6 +23,12 @@ class Extractor:
         return header
 
     @staticmethod
+    def extract_html_consensus(filename):
+        with open(filename, "r") as f:
+            html = f.read()
+        return html
+
+    @staticmethod
     def extract_records(filename):
         return list(SeqIO.parse(filename, "fasta"))
 
