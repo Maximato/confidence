@@ -1,4 +1,4 @@
-from Clss.Extractor.Extractor import Extractor
+from Clss.FileSys.Extractor import Extractor
 from Clss.Model.Consensus import Consensus
 from Clss.FileSys.RecordsWriter import RecordsWriter
 from Bio.Seq import Seq
@@ -14,5 +14,5 @@ class ConsensusController:
         RecordsWriter(record).write_to(outfile)
 
 
-cc = ConsensusController()
-cc.convert_to_mutations("..\..\consensus.html", "sdf", ["c80", "c90"])
+"""cc = ConsensusController()
+cc.convert_to_mutations("..\..\consensus.html", "sdf", ["c80", "c90"])"""

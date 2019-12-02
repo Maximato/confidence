@@ -1,4 +1,4 @@
-from Clss.Extractor.Extractor import Extractor
+from Clss.FileSys.Extractor import Extractor
 from Clss.Model.Alignment import Alignment
 from Clss.Model.AlignedSeq import AlignedSeq
 from Clss.FileSys.ConsensusWriter import ConsensusWriter

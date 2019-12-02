@@ -1,4 +1,4 @@
-from Clss.Extractor.Extractor import Extractor
+from Clss.FileSys.Extractor import Extractor
 from Clss.FileSys.check_directory import check_dir
 from Bio.SeqRecord import SeqRecord
 from Bio.Seq import Seq

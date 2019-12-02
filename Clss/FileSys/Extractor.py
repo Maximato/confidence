@@ -1,11 +1,11 @@
 from Bio import SeqIO
 from definitions import *
-from os.path import abspath, join
+from os.path import join
 from os import listdir
 
 
-CONF_HTML_HEADER = join(PROJECT_PATH, "Clss", "Extractor", "header_for_confidence.txt")
-DEEP_HTML_HEADER = join(PROJECT_PATH, "Clss", "Extractor", "header_for_deeps.txt")
+CONF_HTML_HEADER = join(PROJECT_PATH, "Clss", "FileSys", "header_for_confidence.txt")
+DEEP_HTML_HEADER = join(PROJECT_PATH, "Clss", "FileSys", "header_for_deeps.txt")
 
 
 class Extractor:

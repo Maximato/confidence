@@ -1,4 +1,4 @@
-from Clss.Extractor.Extractor import Extractor
+from Clss.FileSys.Extractor import Extractor
 from Clss.FileSys.RecordsWriter import RecordsWriter
 from Clss.Model.Records import Records
 

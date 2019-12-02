@@ -1,6 +1,7 @@
 from Clss.Controller.AlignController import AlignController
 from Clss.Controller.GaController import GaController
 from Clss.Controller.RecordsController import RecordsController
+from Clss.Controller.ConsensusController import ConsensusController
 import argparse
 
 version = "1.0.0"
@@ -69,6 +70,13 @@ def create_parser():
     filtr_parser.add_argument("--mins", help="Minimal size of sequence", metavar="mins")
     filtr_parser.add_argument("--maxs", help="Maximal size of sequence", metavar="maxs")
 
+    # add parser of converting to mutations
+    mut_parser = subparsers.add_parser("mut", help="convert html consensus to consensus with mutations",
+                                       description="Convert html consensus to consensus with mutations")
+    mut_parser.add_argument("-i", "--input", help="Input html consensus", metavar="input")
+    mut_parser.add_argument("-o", "--output", help="Out file with mutations", metavar="output")
+    mut_parser.add_argument("-ml", help="Levels of mutations in string: 'c90 c80 ...'", metavar="ml")
+
     return parser
 
 
@@ -76,6 +84,7 @@ if __name__ == "__main__":
     ga = GaController()
     ac = AlignController()
     rc = RecordsController()
+    cc = ConsensusController()
 
     parser = create_parser()
     namespace = parser.parse_args()
@@ -97,5 +106,7 @@ if __name__ == "__main__":
         rc.grouping(namespace.input, int(namespace.ming), int(namespace.maxg), namespace.output)
     elif namespace.command == "filtr":
         rc.filtrating(namespace.input, namespace.output, namespace.organism, int(namespace.mins), int(namespace.maxs))
+    elif namespace.command == "mut":
+        cc.convert_to_mutations(namespace.input, namespace.output, namespace.ml.split())
     else:
         parser.print_help()
