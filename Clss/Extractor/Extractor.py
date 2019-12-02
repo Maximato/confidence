@@ -1,5 +1,7 @@
 from Bio import SeqIO
 from definitions import *
+from os.path import abspath, join
+from os import listdir
 
 
 CONF_HTML_HEADER = join(PROJECT_PATH, "Clss", "Extractor", "header_for_confidence.txt")
@@ -8,7 +10,7 @@ DEEP_HTML_HEADER = join(PROJECT_PATH, "Clss", "Extractor", "header_for_deeps.txt
 
 class Extractor:
     @staticmethod
-    def get_html_header(coloring):
+    def extract_html_header(coloring):
         if coloring == "c":
             filename = CONF_HTML_HEADER
         elif coloring == "d":
@@ -21,5 +23,11 @@ class Extractor:
         return header
 
     @staticmethod
-    def recs_extractor(filename):
+    def extract_records(filename):
         return list(SeqIO.parse(filename, "fasta"))
+
+    @staticmethod
+    def extract_filenames(dirname):
+        files = listdir(dirname)
+        full_paths = [join(dirname, fn) for fn in files]
+        return full_paths

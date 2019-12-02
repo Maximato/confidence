@@ -6,7 +6,8 @@ from Bio import pairwise2
 
 class Alignment:
 
-    def __init__(self, aligned_seqs):
+    def __init__(self, aligned_seqs, name="undefined"):
+        self.name = name
         self.aligned_seqs = aligned_seqs
         self.max_deep = len(aligned_seqs)
         self.n = aligned_seqs[0].n

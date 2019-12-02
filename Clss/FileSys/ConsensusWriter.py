@@ -63,7 +63,7 @@ class ConsensusWriter:
         return Seq(s)
 
     def __write_html_to(self, filename, coloring="c", ignore_gaps=False, ignore_level=0.9):
-        html_header = Extractor.get_html_header(coloring)
+        html_header = Extractor.extract_html_header(coloring)
         html_body = self.__get_html_body(coloring, ignore_gaps, ignore_level)
 
         check_dir(filename)

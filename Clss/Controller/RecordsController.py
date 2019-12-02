@@ -9,7 +9,7 @@ class RecordsController:
     def grouping(filename, minsog, maxsog, outdir):
         # minsog - min size of genome
         # maxsog - max size of genome
-        records = Records(Extractor.recs_extractor(filename))
+        records = Records(Extractor.extract_records(filename))
 
         groups = records.group(minsog, maxsog)
         for key in groups:
@@ -18,6 +18,6 @@ class RecordsController:
 
     @staticmethod
     def filtrating(filename, out_file, organism, minsize, maxsize):
-        records = Records(Extractor.recs_extractor(filename))
+        records = Records(Extractor.extract_records(filename))
         fseqs = records.filtr_organism_by_size(organism, minsize, maxsize)
         RecordsWriter(fseqs).write_to(out_file)
