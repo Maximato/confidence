@@ -35,7 +35,7 @@ class TestAlignmemt(unittest.TestCase):
         # assertion
         self.assertIsNotNone(consensus)
 
-    def test_recount_with(self):
+    def test_consensus_with(self):
         # setup data
         seqs = ["ATCGAC", "ACTAGC"]
 

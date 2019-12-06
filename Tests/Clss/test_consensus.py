@@ -15,6 +15,16 @@ class TestConsensus(unittest.TestCase):
         # assertion
         self.assertEqual("AC", s)
 
+    def test_get_consensus_with_mut(self):
+        # setup data
+        html_cons = "<span class='c90'>G</sapan><span class='c60'>C</sapan>"
+
+        # test function
+        mutated_consensus = Consensus.get_consensus_with_mut(html_cons, "c90 c80")
+
+        # assertion
+        self.assertEqual("G*", mutated_consensus)
+
 
 """    def test_get_html_body(self):
         # setup data

@@ -7,13 +7,19 @@ import unittest
 class TestRecords(unittest.TestCase):
 
     def setUp(self):
-        self.seq1 = SeqRecord("CGGG", id="o1", description="organism1")
-        self.seq2 = SeqRecord("ACGA", id="o1", description="organism1")
-        self.seq3 = SeqRecord("ATGATCGA", id="o2", description="organism2")
+        self.seq1 = SeqRecord("CGGG", id="o1_1", description="organism1")
+        self.seq2 = SeqRecord("ACGA", id="o1_2", description="organism1")
+        self.seq3 = SeqRecord("ATGATCGA", id="o3_1", description="organism2")
         self.sequences = Records([self.seq1, self.seq2, self.seq3])
 
+    def test_get_seqs(self):
+        self.assertEqual(["CGGG", "ACGA", "ATGATCGA"], self.sequences.get_seqs())
+
     def test_group(self):
+        # test function
         groups = self.sequences.group(6)
+
+        # assertion
         expected_keys = set()
         expected_keys.add("cds")
         expected_keys.add("o1")
@@ -24,3 +30,17 @@ class TestRecords(unittest.TestCase):
     def test_filtr_organism_by_size(self):
         filtrated = self.sequences.filtr_organism_by_size("organism1", 2, 7)
         self.assertEqual([self.seq1, self.seq2], filtrated)
+
+    def test_create_dist_matrix(self):
+        # test function
+        dist_matrix = self.sequences.create_dist_matrix()
+
+        # assertion
+        self.assertEqual(3, len(dist_matrix))
+
+    def test_pca(self):
+        # test function
+        db = self.sequences.pca()
+
+        # assertion
+        self.assertIsNotNone(db)
