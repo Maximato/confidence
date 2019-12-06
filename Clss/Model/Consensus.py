@@ -8,18 +8,18 @@ class MyHTMLParser(HTMLParser):
             conf_levels = ["c90"]
         self.conf_levels = conf_levels
         self.consensus = ""
-        self.data = False
+        self.conf_data = False
 
     def handle_starttag(self, tag, attrs):
         if tag == "span" and len(attrs) == 1:
             if attrs[0][1] in self.conf_levels:
-                self.data = True
-        else:
-            self.data = False
+                self.conf_data = True
+            else:
+                self.conf_data = False
 
     def handle_data(self, data):
         if data in "ACGT-":
-            if self.data:
+            if self.conf_data:
                 self.consensus += data
             else:
                 self.consensus += "*"
