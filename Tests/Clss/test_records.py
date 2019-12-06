@@ -30,17 +30,3 @@ class TestRecords(unittest.TestCase):
     def test_filtr_organism_by_size(self):
         filtrated = self.sequences.filtr_organism_by_size("organism1", 2, 7)
         self.assertEqual([self.seq1, self.seq2], filtrated)
-
-    def test_create_dist_matrix(self):
-        # test function
-        dist_matrix = self.sequences.create_dist_matrix()
-
-        # assertion
-        self.assertEqual(3, len(dist_matrix))
-
-    def test_pca(self):
-        # test function
-        db = self.sequences.pca()
-
-        # assertion
-        self.assertIsNotNone(db)

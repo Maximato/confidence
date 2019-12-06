@@ -1,9 +1,3 @@
-from sklearn.cluster import DBSCAN
-import numpy as np
-from Bio import pairwise2
-from Bio.pairwise2 import format_alignment
-
-
 class Records:
     def __init__(self, records):
         self.records = records
@@ -40,26 +34,3 @@ class Records:
                     fseqs.append(record)
         print("Number of sequences after filtrating: ", len(fseqs))
         return fseqs
-
-    def create_dist_matrix(self):
-        dm = []
-        for record1 in self.records:
-            raw = []
-            for record2 in self.records:
-                align = pairwise2.align.globalxx(record1.seq, record2.seq, one_alignment_only=1)
-                # print((align[0]))
-                raw.append(align[0][2])
-            dm.append(raw)
-        return dm
-
-    def pca(self, eps=0.825, ms=5, dist_matrix=None):
-        if dist_matrix is None:
-            dm = self.create_dist_matrix()
-        else:
-            dm = dist_matrix
-
-        X = np.array(dm)
-        db = DBSCAN(eps=eps, min_samples=ms).fit(X)
-        print(db)
-        print(db.labels_)
-        return db
