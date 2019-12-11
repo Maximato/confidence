@@ -2,6 +2,7 @@ from Clss.Controller.AlignController import AlignController
 from Clss.Controller.GaController import GaController
 from Clss.Controller.RecordsController import RecordsController
 from Clss.Controller.ConsensusController import ConsensusController
+from Clss.Controller.ClusterizationController import ClusterisationController
 import argparse
 
 version = "1.0.0"
@@ -77,6 +78,10 @@ def create_parser():
     mut_parser.add_argument("-o", "--output", help="Out file with mutations", metavar="output")
     mut_parser.add_argument("-ml", help="Levels of mutations in string: 'c90 c80 ...'", metavar="ml")
 
+    # add parser of clusterisation
+    clust_parser = subparsers.add_parser("clust", help="clusterize sequences", description="clusterize sequences")
+    clust_parser.add_argument("-i", "--input", help="Input sequences", metavar="input")
+    clust_parser.add_argument("-o", "--output", help="Output dir", metavar="output")
     return parser
 
 
@@ -85,6 +90,7 @@ if __name__ == "__main__":
     ac = AlignController()
     rc = RecordsController()
     cc = ConsensusController()
+    clc = ClusterisationController()
 
     parser = create_parser()
     namespace = parser.parse_args()
@@ -108,5 +114,7 @@ if __name__ == "__main__":
         rc.filtrating(namespace.input, namespace.output, namespace.organism, int(namespace.mins), int(namespace.maxs))
     elif namespace.command == "mut":
         cc.convert_to_mutations(namespace.input, namespace.output, namespace.ml.split())
+    elif namespace.command == "clust":
+        clc.clusterization(namespace.input, namespace.output)
     else:
         parser.print_help()

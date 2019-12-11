@@ -1,18 +1,15 @@
-from sklearn.cluster import DBSCAN
 import numpy as np
 from Bio import pairwise2
-from Bio.pairwise2 import format_alignment
-from sklearn.datasets import load_iris
 from sklearn.cluster import DBSCAN
-from sklearn.decomposition import PCA
-import matplotlib.pyplot as pl
+from sklearn.preprocessing import StandardScaler
 
 
 class Clusterization:
-    def __init__(self, reords):
+    def __init__(self, records):
         super()
-        self.records = reords
+        self.records = records
         self.dm = None
+        self.X = None
         self.db = None
 
     def create_dist_matrix(self):
@@ -21,17 +18,18 @@ class Clusterization:
             raw = []
             for record2 in self.records:
                 align = pairwise2.align.globalxx(record1.seq, record2.seq, one_alignment_only=1)
-                # print((align[0]))
                 raw.append(align[0][2])
             dm.append(raw)
+        dm = np.array(dm)
         self.dm = dm
         return dm
 
     def clusterize(self, eps=1, ms=2):
         if self.dm is None:
-            X = np.array(self.create_dist_matrix())
+            X = StandardScaler().fit_transform(self.create_dist_matrix())
         else:
-            X = np.array(self.dm)
+            X = StandardScaler().fit_transform(self.dm)
+        self.X = X
         db = DBSCAN(eps=eps, min_samples=ms).fit(X)
         self.db = db
         return db
