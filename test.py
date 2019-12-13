@@ -1,16 +1,18 @@
-# confidence calculation
-from Clss.Model.Alignment import Alignment
-from Clss.Model.Records import Records
+from sklearn.datasets import make_blobs
+import numpy as np
+from sklearn.preprocessing import StandardScaler
+# X, y = make_blobs(n_samples=10, centers=3, n_features=3,random_state=0)
 
 
-#align = pairwise2.align.localxs("TACGCATCGACG-ACTGGGGGAA", "ACGC-ATCG", -2, -1, one_alignment_only=1)
-#time.
+centers = [[1, 1], [-1, -1], [1, -1]]
+X, labels_true = make_blobs(n_samples=750, centers=centers, cluster_std=0.4,
+                            random_state=0)
+print(X)
+X = StandardScaler().fit_transform(X)
+print(X)
 
-"""align = read(open("Data/Aligns_compare/TBEV_clustalo_align.phylip", "r"), "phylip")
-with open("Data/Aligns_compare/TBEV_clustalo_align.fasta", "w") as f:
-    f.write(align.format("fasta"))"""
-
-#align = pairwise2.align.globalxs(seqs[0].seq, seqs[3].seq, -2, -1)
-#print(align)
-#print(*align[0])
-#print(format_alignment(*align[0]))
+dist_m = [[1, 2, 2, 1], [2, 1, 2, 1], [3, 2, 4, 1], [1, 2, 3, 1]]
+dist_m = np.array(dist_m)
+print(dist_m)
+dist_m = StandardScaler().fit_transform(dist_m)
+print(dist_m)

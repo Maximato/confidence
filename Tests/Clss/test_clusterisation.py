@@ -14,6 +14,7 @@ class TestClusterisation(TestCase):
     def test_create_dist_matrix(self):
         # test function
         dist_matrix = self.sequences.create_dist_matrix()
+        print(dist_matrix)
 
         # assertion
         self.assertEqual(3, len(dist_matrix))

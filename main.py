@@ -82,6 +82,11 @@ def create_parser():
     clust_parser = subparsers.add_parser("clust", help="clusterize sequences", description="clusterize sequences")
     clust_parser.add_argument("-i", "--input", help="Input sequences", metavar="input")
     clust_parser.add_argument("-o", "--output", help="Output dir", metavar="output")
+    clust_parser.add_argument("-e", "--eps", help="The maximum distance between two samples", default=1, metavar="eps")
+    clust_parser.add_argument("-s", "--minsamples", help="The number of samples (or total weight) in a neighborhood "
+                                                         "for a point to be considered as a core point. "
+                                                         "This includes the point itself.", default=2,
+                              metavar="minsamples")
     return parser
 
 
@@ -115,6 +120,6 @@ if __name__ == "__main__":
     elif namespace.command == "mut":
         cc.convert_to_mutations(namespace.input, namespace.output, namespace.ml.split())
     elif namespace.command == "clust":
-        clc.clusterization(namespace.input, namespace.output)
+        clc.clusterization(namespace.input, namespace.output, float(namespace.eps), int(namespace.minsamples))
     else:
         parser.print_help()

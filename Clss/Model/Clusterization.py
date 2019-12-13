@@ -1,15 +1,16 @@
 import numpy as np
 from Bio import pairwise2
 from sklearn.cluster import DBSCAN
+import time
 from sklearn.preprocessing import StandardScaler
 
 
 class Clusterization:
-    def __init__(self, records):
+    def __init__(self, records, dm=None):
         super()
         self.records = records
-        self.dm = None
-        self.X = None
+        self.dm = dm
+        # self.X = None
         self.db = None
 
     def create_dist_matrix(self):
@@ -18,7 +19,9 @@ class Clusterization:
             raw = []
             for record2 in self.records:
                 align = pairwise2.align.globalxx(record1.seq, record2.seq, one_alignment_only=1)
-                raw.append(align[0][2])
+                raw.append(1-align[0][2]/len(align[0][0]))
+                print(time.process_time())
+                #raw.append(align[0][2])
             dm.append(raw)
         dm = np.array(dm)
         self.dm = dm
@@ -26,11 +29,8 @@ class Clusterization:
 
     def clusterize(self, eps=1, ms=2):
         if self.dm is None:
-            X = StandardScaler().fit_transform(self.create_dist_matrix())
-        else:
-            X = StandardScaler().fit_transform(self.dm)
-        self.X = X
-        db = DBSCAN(eps=eps, min_samples=ms).fit(X)
+            self.create_dist_matrix()
+        db = DBSCAN(eps=eps, min_samples=ms, metric="precomputed").fit(self.dm)
         self.db = db
         return db
 

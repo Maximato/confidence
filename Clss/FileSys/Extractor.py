@@ -37,3 +37,12 @@ class Extractor:
         files = listdir(dirname)
         full_paths = [join(dirname, fn) for fn in files]
         return full_paths
+
+    @staticmethod
+    def extract_dist_matrix(filename):
+        dist_matrix = []
+        with open(filename, "r") as f:
+            f.readline()
+            for line in f:
+                dist_matrix.append(list(map(float, line.split()))[1:])
+        return dist_matrix

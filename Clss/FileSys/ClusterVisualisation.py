@@ -2,19 +2,24 @@ import numpy as np
 
 from sklearn.cluster import DBSCAN
 from sklearn import metrics
-from sklearn.datasets import make_blobs
 from sklearn.preprocessing import StandardScaler
 import matplotlib.pyplot as plt
 from os.path import join
 
 
 class ClusterVisualisation:
-    def __init__(self, db, X):
+    def __init__(self, db, dm):
         self.db = db
-        self.X = X
+        self.dm = dm
+
+    def write_dm(self, outdir):
+        with open(join(outdir, "dist_matrix"), "w") as f:
+            for x in self.dm:
+                line = " ".join(map(str, x))
+                f.write(line + "\n")
 
     def visualize(self, outdir):
-        X = self.X
+        X = self.dm
         db = self.db
         core_samples_mask = np.zeros_like(db.labels_, dtype=bool)
         core_samples_mask[db.core_sample_indices_] = True
