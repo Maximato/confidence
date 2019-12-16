@@ -21,14 +21,14 @@ class TestClusterisation(TestCase):
 
     def test_clusterize(self):
         # test function
-        db = self.sequences.clusterize()
+        db = self.sequences.get_clusters_indexes()
 
         # assertion
         self.assertIsNotNone(db)
 
     def test_get_clusters(self):
         # test function
-        self.sequences.clusterize()
+        self.sequences.get_clusters_indexes()
         clusters = self.sequences.get_indexes()
 
         # assertion

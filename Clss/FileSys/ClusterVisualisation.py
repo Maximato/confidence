@@ -4,9 +4,8 @@ from os.path import join
 
 
 class ClusterVisualisation:
-    def __init__(self, coordinates, labels, dm, indexes):
+    def __init__(self, coordinates, dm, indexes):
         self.crds = coordinates
-        self.lb = labels
         self.dm = dm
         self.indexes = indexes
 
@@ -18,7 +17,7 @@ class ClusterVisualisation:
 
     def visualize(self, outdir):
 
-        unique_labels = set(self.lb)
+        unique_labels = self.indexes.keys()
         colors = [plt.cm.Spectral(each)
                   for each in np.linspace(0, 1, len(unique_labels))]
 
