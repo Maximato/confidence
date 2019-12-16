@@ -29,7 +29,7 @@ class TestClusterisation(TestCase):
     def test_get_clusters(self):
         # test function
         self.sequences.clusterize()
-        clusters = self.sequences.get_clusters()
+        clusters = self.sequences.get_indexes()
 
         # assertion
         self.assertIsNotNone(clusters)

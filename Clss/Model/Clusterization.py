@@ -1,5 +1,6 @@
 import numpy as np
 from Bio import pairwise2
+from sklearn import manifold
 from sklearn.cluster import DBSCAN
 import time
 from sklearn.preprocessing import StandardScaler
@@ -10,6 +11,7 @@ class Clusterization:
         super()
         self.records = records
         self.dm = dm
+        self.indexes = None
         # self.X = None
         self.db = None
 
@@ -34,15 +36,29 @@ class Clusterization:
         self.db = db
         return db
 
-    def get_clusters(self):
+    def get_indexes(self):
         if self.db is None:
             raise ValueError("Db should not be None")
 
         labels = self.db.labels_
-        clusters = {}
+        indexes = {}
         for i, lb in enumerate(labels):
-            if lb not in clusters.keys():
-                clusters[lb] = [self.records[i]]
+            if lb not in indexes.keys():
+                indexes[lb] = [i]
             else:
-                clusters[lb].append(self.records[i])
+                indexes[lb].append(i)
+        self.indexes = indexes
+        return indexes
+
+    def get_clusters(self):
+        if self.indexes is None:
+            self.get_indexes()
+        clusters = {}
+        for ids in self.indexes:
+            clusters[ids] = [self.records[i] for i in self.indexes[ids]]
         return clusters
+
+    def get_coordinates(self):
+        mds = manifold.MDS(n_components=2, dissimilarity="precomputed", random_state=6)
+        results = mds.fit(self.dm)
+        return results.embedding_
