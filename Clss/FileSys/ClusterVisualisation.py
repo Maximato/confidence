@@ -1,6 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from os.path import join
+from os.path import join, isdir
+import os
 
 
 class ClusterVisualisation:
@@ -10,6 +11,8 @@ class ClusterVisualisation:
         self.indexes = indexes
 
     def write_dm(self, outdir):
+        if not isdir(outdir):
+            os.mkdir(outdir)
         with open(join(outdir, "dist_matrix"), "w") as f:
             for x in self.dm:
                 line = " ".join(map(str, x))

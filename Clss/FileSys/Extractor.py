@@ -44,5 +44,5 @@ class Extractor:
         with open(filename, "r") as f:
             f.readline()
             for line in f:
-                dist_matrix.append(list(map(float, line.split()))[1:])
+                dist_matrix.append(list(map(float, line.split()[1:])))
         return dist_matrix

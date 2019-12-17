@@ -87,6 +87,7 @@ def create_parser():
                                                          "for a point to be considered as a core point. "
                                                          "This includes the point itself.", default=2,
                               metavar="minsamples")
+    clust_parser.add_argument("-d", "--dm", help="Distance matrix for input data records", default=None, metavar="dm")
     return parser
 
 
@@ -98,28 +99,28 @@ if __name__ == "__main__":
     clc = ClusterisationController()
 
     parser = create_parser()
-    namespace = parser.parse_args()
-    if namespace.command == "align":
-        input = namespace.input
-        output = namespace.output
-        if namespace.mode == "s":
+    ns = parser.parse_args()
+    if ns.command == "align":
+        input = ns.input
+        output = ns.output
+        if ns.mode == "s":
             ga.align(input, output)
-        if namespace.mode == "g":
+        if ns.mode == "g":
             ga.align_groups(input, output)
-    elif namespace.command == "convert":
-        ac.convert_in_all_combinations(namespace.input, namespace.output, namespace.prefix)
-    elif namespace.command == "consensus":
-        ac.consensus_with(namespace.input, namespace.seqs, namespace.output)
-    elif namespace.command == "unite":
-        ac.unite_aligns(namespace.input, namespace.output, bool(namespace.flength), bool(namespace.ig),
-                        float(namespace.il))
-    elif namespace.command == "group":
-        rc.grouping(namespace.input, int(namespace.ming), int(namespace.maxg), namespace.output)
-    elif namespace.command == "filtr":
-        rc.filtrating(namespace.input, namespace.output, namespace.organism, int(namespace.mins), int(namespace.maxs))
-    elif namespace.command == "mut":
-        cc.convert_to_mutations(namespace.input, namespace.output, namespace.ml.split())
-    elif namespace.command == "clust":
-        clc.clusterization(namespace.input, namespace.output, float(namespace.eps), int(namespace.minsamples))
+    elif ns.command == "convert":
+        ac.convert_in_all_combinations(ns.input, ns.output, ns.prefix)
+    elif ns.command == "consensus":
+        ac.consensus_with(ns.input, ns.seqs, ns.output)
+    elif ns.command == "unite":
+        ac.unite_aligns(ns.input, ns.output, bool(ns.flength), bool(ns.ig),
+                        float(ns.il))
+    elif ns.command == "group":
+        rc.grouping(ns.input, int(ns.ming), int(ns.maxg), ns.output)
+    elif ns.command == "filtr":
+        rc.filtrating(ns.input, ns.output, ns.organism, int(ns.mins), int(ns.maxs))
+    elif ns.command == "mut":
+        cc.convert_to_mutations(ns.input, ns.output, ns.ml.split())
+    elif ns.command == "clust":
+        clc.clusterization(ns.input, ns.output, float(ns.eps), int(ns.minsamples), ns.dm)
     else:
         parser.print_help()
