@@ -30,13 +30,13 @@ class AlignController:
         of consensus.
 
         :param filename: fasta file with sequences the same length, is alignment in fasta format.
-        :param outfile: output filename, consensus in '.txt' or '.html' format
+        :param outfile: output filename, consensus in '.fasta' or '.html' format
         :param full_length: boolean, True or False. If True the confidence level and deeps of position calculating
         will be done using all length of sequences. For False parameter calculating will be done without full gaps
         ends of sequences
         :param coloring: 'c' or 'd'. First for coloring confidence, second for coloring deeps. Coloring used in 'html'
         format outfile only
-        :param fmt: format of outfile ('html' or 'txt')
+        :param fmt: format of outfile ('html' or 'fasta')
         :param ignore_gaps: boolean, True or False. Ignoring gaps with high level of confidence
         (with confidence >= ignore_level)
         :param ignore_level: float, level of ignoring gaps
@@ -75,7 +75,7 @@ class AlignController:
         :param align_file: filename of aligning complete genomes in fasta format
         :param seqs_file: filename with short sequences in fasta
         :param outfile: outfile name
-        :param fmt: format of outfile name ('txt' or 'html')
+        :param fmt: format of outfile name ('fasta' or 'html')
         """
         align = AlignController.__get_alignment_from(align_file)
         recs = Extractor.extract_records(seqs_file)

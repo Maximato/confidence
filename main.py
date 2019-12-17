@@ -115,7 +115,7 @@ if __name__ == "__main__":
         ac.unite_aligns(ns.input, ns.output, bool(ns.flength), bool(ns.ig),
                         float(ns.il))
     elif ns.command == "group":
-        rc.grouping(ns.input, int(ns.ming), int(ns.maxg), ns.output)
+        rc.grouping(ns.input, ns.output, int(ns.ming), int(ns.maxg))
     elif ns.command == "filtr":
         rc.filtrating(ns.input, ns.output, ns.organism, int(ns.mins), int(ns.maxs))
     elif ns.command == "mut":

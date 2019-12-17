@@ -8,7 +8,7 @@ ga_path = "~/GRAMALIGN/src/GramAlign"
 class GramAlign:
     @staticmethod
     def run_gram_align(filename, outfile):
-        # creating output directory
+        # checking directory of filename
         check_dir(filename)
 
         command = ga_path + " -i " + filename + " -o " + outfile + " -f 2"
