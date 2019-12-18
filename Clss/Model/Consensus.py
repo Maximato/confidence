@@ -2,10 +2,12 @@ from html.parser import HTMLParser
 
 
 class MyHTMLParser(HTMLParser):
-    def __init__(self, conf_levels=None):
+    """
+    Class for converting HTML consensus into string consensus with mutations
+    """
+
+    def __init__(self, conf_levels):
         super().__init__()
-        if conf_levels is None:
-            conf_levels = ["c90"]
         self.conf_levels = conf_levels
         self.consensus = ""
         self.conf_data = False
@@ -27,6 +29,13 @@ class MyHTMLParser(HTMLParser):
 
 class Consensus(dict):
     def get_str_consensus(self, ignore_gaps=False, ignore_level=0.9):
+        """
+        Calculating string consensus
+        :param ignore_gaps: boolean, True or False. Ignoring gaps with high level of confidence
+        (with confidence >= ignore_level)
+        :param ignore_level: float, level of ignoring gaps
+        :return: string, consensus
+        """
         str_consensus = ""
         for i, symbol in enumerate(self["symbols"]):
             if symbol == "-" and ignore_gaps and self["confidences"][i] > ignore_level:
@@ -37,6 +46,12 @@ class Consensus(dict):
 
     @staticmethod
     def get_consensus_with_mut(html_cons, mut_levels):
+        """
+        Parse html consensus and convert it into string with mutations marked as '*'
+        :param html_cons: string, html consensus
+        :param mut_levels: list, classes of confidence that we do not consider be mutation ['c90', 'c80']
+        :return: string, consensus with mutations
+        """
         parser = MyHTMLParser(mut_levels)
         parser.feed(html_cons)
         return parser.consensus

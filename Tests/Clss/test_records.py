@@ -27,6 +27,24 @@ class TestRecords(unittest.TestCase):
         self.assertEqual(expected_keys, groups.keys())
         self.assertEqual([self.seq3], groups["cds"])
 
+    def test_create_dist_matrix(self):
+        # test function
+        dist_matrix = self.sequences.create_dist_matrix()
+        print(dist_matrix)
+
+        # assertion
+        self.assertEqual(3, len(dist_matrix))
+
+    def test_get_clusters(self):
+        # setup data
+        indexes = {-1: [0], 1: [1, 2]}
+
+        # test function
+        clusters = self.sequences.get_clusters(indexes)
+
+        # assertion
+        self.assertIsNotNone(clusters)
+
     def test_filtr_organism_by_size(self):
         filtrated = self.sequences.filtr_organism_by_size("organism1", 2, 7)
         self.assertEqual([self.seq1, self.seq2], filtrated)

@@ -1,35 +1,23 @@
 from Clss.Model.Clusterization import Clusterization
-from Bio.SeqRecord import SeqRecord
 from unittest import TestCase
 
 
 class TestClusterisation(TestCase):
 
     def setUp(self):
-        self.seq1 = SeqRecord("CGGG", id="o1_1", description="organism1")
-        self.seq2 = SeqRecord("ACGA", id="o1_2", description="organism1")
-        self.seq3 = SeqRecord("ATGATCGA", id="o3_1", description="organism2")
-        self.sequences = Clusterization([self.seq1, self.seq2, self.seq3])
+        dm = [[0, 2], [2, 0]]
+        self.cl = Clusterization(dm)
 
-    def test_create_dist_matrix(self):
+    def test_get_clusters_indexes(self):
         # test function
-        dist_matrix = self.sequences.create_dist_matrix()
-        print(dist_matrix)
+        indexes = self.cl.get_clusters_indexes()
 
         # assertion
-        self.assertEqual(3, len(dist_matrix))
+        self.assertIsNotNone(indexes)
 
-    def test_clusterize(self):
+    def test_get_coordinates(self):
         # test function
-        db = self.sequences.get_clusters_indexes()
+        coordinates = self.cl.get_coordinates()
 
         # assertion
-        self.assertIsNotNone(db)
-
-    def test_get_clusters(self):
-        # test function
-        self.sequences.get_clusters_indexes()
-        clusters = self.sequences.get_indexes()
-
-        # assertion
-        self.assertIsNotNone(clusters)
+        self.assertIsNotNone(coordinates)

@@ -7,8 +7,8 @@ from Bio import pairwise2
 class Alignment:
 
     def __init__(self, aligned_seqs, name="undefined"):
-        self.name = name
         self.aligned_seqs = aligned_seqs
+        self.name = name
         self.max_deep = len(aligned_seqs)
         self.n = aligned_seqs[0].n
 
@@ -18,7 +18,12 @@ class Alignment:
                 raise AttributeError("Not equal sizes of aligned sequences")
 
     def __get_counts(self, full_length=True):
-        # calculating of counts of nucleotides in alignment
+        """
+        Calculating of counts of nucleotides in alignment
+
+        :param full_length: boolean, taking into account 'gap ends' if True
+        :return: Counts, counts of nucleotides ('A', 'T', 'G', 'C', '-') in every position of alignment
+        """
         counts = Counts(self.n)
         for als in self.aligned_seqs:
             if full_length:
@@ -32,6 +37,13 @@ class Alignment:
         return counts
 
     def get_consensus(self, counts=None, full_length=True):
+        """
+        Calculating of consensus alignment.
+
+        :param counts: Counts, counts of nucleotides ('A', 'T', 'G', 'C', '-') in every position of alignment
+        :param full_length: boolean, taking into account 'gap ends' if True
+        :return: dict shape, consensus that contains symbols, deeps, confidences in every position of alignment
+        """
         if counts is None:
             counts = self.__get_counts(full_length)
         # calculating of confidence from counts
@@ -49,10 +61,7 @@ class Alignment:
                     max_score = count
                     symbol = key
 
-            if summ == 0:
-                confidence = 1
-            else:
-                confidence = max_score / summ
+            confidence = max_score / summ
 
             consensus["symbols"].append(symbol)
             consensus["deeps"].append(summ)
@@ -62,10 +71,16 @@ class Alignment:
         return consensus
 
     def consensus_with(self, seqs, full_length=True):
+        """
+        Recount consensus using additional information from sequences
+        :param seqs: list sequences
+        :param full_length: boolean, taking into account 'gap ends' if True
+        :return: dict shape, new consensus
+        """
         counts = self.__get_counts(full_length)
         consensus = self.get_consensus(counts=counts)
         str_consensus = consensus.get_str_consensus(ignore_gaps=False)
-        # new_consensus = deepcopy(consensus)
+
         k = 0
         for seq in seqs:
             print(f"calculated {k} from {len(seqs)}")
