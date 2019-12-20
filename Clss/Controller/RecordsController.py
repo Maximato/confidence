@@ -25,7 +25,7 @@ class RecordsController:
     @staticmethod
     def filtrating(filename, out_file, organism, minsize, maxsize):
         """
-        Filtrating sequences by parameters: organizm, minsize and maxsize
+        Filtrating sequences by parameters: organism, minsize and maxsize
 
         :param filename: filename with sequences in fasta
         :param out_file: out filename
