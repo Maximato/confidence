@@ -10,7 +10,7 @@ class TestClusterisation(TestCase):
 
     def test_get_clusters_indexes(self):
         # test function
-        indexes = self.cl.get_clusters_indexes()
+        indexes = self.cl.get_clusters_indexes(0.1, 1)
 
         # assertion
         self.assertIsNotNone(indexes)

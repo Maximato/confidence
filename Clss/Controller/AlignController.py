@@ -51,7 +51,7 @@ class AlignController:
         The function for converting align in fasta format to consensus in all combinations of parameters.
         :param filename: fasta file with sequences the same length, is alignment in fasta format
         :param outdir: output directory for consensuses
-        :param prefix: prefix of files in outdir
+        :param prefix: prefix of files in out
         """
         align = AlignController.__get_alignment_from(filename)
         consensus_full = align.get_consensus(full_length=True)
@@ -81,7 +81,7 @@ class AlignController:
         recs = Extractor.extract_records(seqs_file)
         seqs = [r.seq for r in recs]
         new_consensus = align.consensus_with(seqs, full_length=True)
-        ConsensusWriter(new_consensus).write(outfile, fmt)
+        ConsensusWriter(new_consensus).write(outfile, fmt=fmt)
 
     @staticmethod
     def unite_aligns(dirname, outfile, full_length, ignore_gaps=False, ignore_level=0.9):

@@ -4,9 +4,14 @@ from os.path import join
 
 
 rc = RecordsController()
-test_data = join(TEST_DATA_PATH, "seqs.fasta")
-out_dir = join(TEST_DATA_PATH, "outdir")
-rc.grouping(test_data, 500, out_dir)
+test_data = join(TEST_IN_DATA, "seqs.fasta")
 
-organism = "tick-borne encephalitis virus"
-rc.filtrating(test_data, join(TEST_DATA_PATH, "filtr.fasta"), organism, 250, 300)
+
+def test_grouping():
+    out_dir = join(TEST_OUT_DATA, "groups")
+    rc.grouping(test_data, out_dir, 300, 1000)
+
+
+def test_filtrating():
+    organism = "tick-borne encephalitis virus"
+    rc.filtrating(test_data, join(TEST_OUT_DATA, "filtr.fasta"), organism, 250, 300)
