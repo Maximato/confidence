@@ -61,8 +61,8 @@ class AlignController:
         lig = 0.9
 
         # writing consensuses
-        ConsensusWriter(consensus_full).write_all(outdir, prefix, lig)
-        ConsensusWriter(consensus_part).write_all(outdir, prefix, lig)
+        ConsensusWriter(consensus_full).write_all(outdir, prefix + "_F", lig)
+        ConsensusWriter(consensus_part).write_all(outdir, prefix + "_P", lig)
 
     @staticmethod
     def consensus_with(align_file, seqs_file, outfile, fmt="html"):

@@ -1,4 +1,4 @@
-from Clss.Controller.GaController import GaController
+from Clss.Controller.RunAlignController import GaController
 from definitions import *
 from os.path import join
 

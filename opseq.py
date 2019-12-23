@@ -43,7 +43,7 @@ def create_parser():
                                                      "Visualisation and saving of clusters into files.")
     clust_parser.add_argument("-i", "--input", help="Input file with sequences (.fasta)", metavar="input")
     clust_parser.add_argument("-o", "--output", help="Output directory for saving data", metavar="output")
-    clust_parser.add_argument("-e", "--eps", help="The maximum distance between two samples", default=1, type=float,
+    clust_parser.add_argument("-e", "--eps", help="The maximum distance between two samples", default=0.5, type=float,
                               metavar="eps")
     clust_parser.add_argument("-s", "--minsamples", help="The number of samples (or total weight) in a neighborhood "
                                                          "for a point to be considered as a core point. "
@@ -64,6 +64,6 @@ if __name__ == "__main__":
     elif ns.command == "filtr":
         rc.filtrating(ns.input, ns.output, ns.organism, ns.mins, ns.maxs)
     elif ns.command == "clust":
-        ClusterisationController.clusterization(ns.input, ns.output, ns.eps, ns.ms, ns.dm)
+        ClusterisationController.clusterization(ns.input, ns.output, ns.eps, ns.minsamples, ns.dm)
     else:
         parser.print_help()
