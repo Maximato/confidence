@@ -1,3 +1,20 @@
+"""
+-----------------------------------------------------------------------------------
+Script mutate.py
+-----------------------------------------------------------------------------------
+
+This script is used to convert a consensus sequence in html format to a string
+sequence in which all unreliable positions (with frequent mutations) are marked
+with a special symbol *.
+
+    python3 mutate.py –i consensus.html – o output.fasta –ml “c90 c80”
+
+-i, --input (consensus.html) - html file containing consensus;
+-o, --output (output.fasta) - output file name, fasta format;
+-ml - levels of nucleotide occurrence, below which nucleotides are noted as mutations.
+"""
+
+
 from Clss.Controller.ConsensusController import ConsensusController
 import argparse
 

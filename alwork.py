@@ -1,3 +1,49 @@
+"""
+-----------------------------------------------------------------------------------
+Script alwork.py
+-----------------------------------------------------------------------------------
+
+This program is necessary for various manipulations with alignments in fasta format.
+Available commands: convert - converts aligned sequences to consensus,
+consensus - calculates a new consensus based on alignment of complete genomes and
+shorter sequences, unite - combines alignments into a single file containing
+consensus sequences.
+
+Using convert:
+
+    python3 alwork.py convert –i align.fasta –o out_dir –p prefix
+
+-i, --input (align.fasta) - the result of alignment of sequences in fasta format;
+-o, --output (out_dir) - the name of the directory for storing the calculation
+results;
+-p, --prefix (prefix) - prefix file names in the results.
+
+Using consensus:
+
+    python3 alwork.py consensus –i align.fasta –s seqs.fasta –o output –f format
+
+-i, --input (align.fasta) - the result of alignment of sequences in fasta format;
+-s, --seqs (seqs.fasta) - file with short sequences in fasta format;
+-o, --output (output) - name of the output file containing the new consensus;
+-f, --format (format) - output file format (“html” or “fasta”).
+
+Using unite:
+
+    python3 alwork.py unite –i input –o output –fl False –ig True –il 0.9
+
+-i, --input (input) - name of the directory containing files with alignments
+in fasta format;
+-o, --output (output) - the name of the output file, with consensus sequences;
+-fl, --flength - (optional parameter, default True) True or False, whether
+the ends of sequences consisting only of gaps (gaps) will be taken into account
+to calculate the occurrence of a nucleotide at a given alignment position;
+-ig - (optional parameter, default False) True or False, ignoring gaps when
+drawing up a consensus sequence;
+-il - (optional parameter, default 0.9) number, occurrence level above which
+gaps are ignored.
+"""
+
+
 from Clss.Controller.AlignController import AlignController
 import argparse
 

@@ -1,3 +1,51 @@
+"""
+-----------------------------------------------------------------------------------
+Script opseq.py
+-----------------------------------------------------------------------------------
+
+This program is designed to work with nucleotine sequences. With its help are
+available: grouping (group), filtering (filtr) and clustering (clust) sequences.
+
+Using group:
+
+    python3 opseq.py group –i sequences.fasta –o out_dir –minsog 100 –maxsog 300
+
+-i, --input (sequences.fasta) - a file in fasta format containing the sequences to be
+studied;
+-i, --output (out_dir) - the name of the directory in which the grouped sequences
+will be stored;
+--minsog - non-negative integer, minimal genome size;
+--maxsog - non-negative integer, the maximum size of the genome.
+
+Using filtr:
+
+    python3 opseq.py filtr –i sequences.fasta –o outfile –organism TBEV –mins 100 –maxs 300
+
+-i, --input (sequences.fasta) - a file in fasta format containing the sequences
+to be studied;
+-o, --output (outfile) - the name of the output file;
+--organism (organism) - the full name of the organism for which filtering
+is performed;
+--mins - non-negative integer, minimum sequence size;
+--maxs - non-negative integer, the maximum size of the sequences.
+
+Using clust:
+
+    python3 opseq.py clust –i sequences.fasta –o out_dir –e 0.5 –s 2 --dm dist_matrix
+
+-i, --input (sequences.fasta) - a file in fasta format containing the sequences
+to be studied;
+-o, --output (out_dir) - the name of the directory in which clusters with
+sequences and visualization data will be stored;
+-e, --eps - (optional parameter, default 0.5) non-negative number, maximum distance
+between samples that are combined into one cluster;
+-s, --minsamples - (optional parameter, default 2) The number of samples
+(or total weight) in a neighborhood for a point to be considered as a core point.
+This includes the point itself;
+-d, --dm - (optional, defaults to None) distance matrix.
+"""
+
+
 from Clss.Controller.RecordsController import RecordsController
 from Clss.Controller.ClusterizationController import ClusterisationController
 import argparse
