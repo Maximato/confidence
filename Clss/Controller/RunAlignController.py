@@ -1,7 +1,7 @@
 from Clss.FileSys.RunAlign import RunAlign
 
 
-class GaController:
+class RunAlignController:
 
     @staticmethod
     def align(filename, prog, outfile):

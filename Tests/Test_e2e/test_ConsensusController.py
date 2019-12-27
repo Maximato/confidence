@@ -1,9 +1,9 @@
-from Clss.Controller.ConsensusController import ConsensusController
+from Clss.Controller.HtmlConsensusController import HtmlConsensusController
 from definitions import *
 from os.path import join
 
 
-cc = ConsensusController()
+cc = HtmlConsensusController()
 test_data = join(TEST_IN_DATA, "consensus.html")
 
 

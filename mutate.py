@@ -15,7 +15,7 @@ with a special symbol *.
 """
 
 
-from Clss.Controller.ConsensusController import ConsensusController
+from Clss.Controller.HtmlConsensusController import HtmlConsensusController
 import argparse
 
 version = "1.0.0"
@@ -43,4 +43,4 @@ if __name__ == "__main__":
     parser = create_parser()
     ns = parser.parse_args()
 
-    ConsensusController.convert_to_mutations(ns.input, ns.output, ns.ml.split())
+    HtmlConsensusController.convert_to_mutations(ns.input, ns.output, ns.ml.split())

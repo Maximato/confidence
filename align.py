@@ -21,7 +21,7 @@ name of the program that performs alignment: GramAlign, muscle or clustalo
 of all files contained in the directory specified in the -i (--input) parameter.
 """
 
-from Clss.Controller.RunAlignController import GaController
+from Clss.Controller.RunAlignController import RunAlignController
 import argparse
 
 version = "1.0.0"
@@ -49,7 +49,7 @@ def create_parser():
 
 
 if __name__ == "__main__":
-    a = GaController()
+    a = RunAlignController()
 
     parser = create_parser()
     ns = parser.parse_args()
