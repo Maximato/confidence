@@ -3,15 +3,17 @@
 Script mutate.py
 -----------------------------------------------------------------------------------
 
-This script is used to convert a consensus sequence in html format to a string
-sequence in which all unreliable positions (with frequent mutations) are marked
-with a special symbol *.
+This script is used to convert a consensus sequence in html format to a text format
+with consensus string and confidence string in which all unreliable positions
+(with frequent mutations) are marked with a special symbol '-'.
 
     python3 mutate.py –i consensus.html – o output.fasta –ml “c90 c80”
 
 -i, --input (consensus.html) - html file containing consensus;
 -o, --output (output.fasta) - output file name, fasta format;
 -ml - levels of nucleotide occurrence, below which nucleotides are noted as mutations.
+-cf, --cut_from - start position for cutting
+-ct, --cut_to - end position for cutting
 """
 
 
@@ -34,7 +36,9 @@ def create_parser():
     parser.add_argument("-i", "--input", help="Input file as html consensus",
                         metavar="input")
     parser.add_argument("-o", "--output", help="Out file with mutations", metavar="output")
-    parser.add_argument("-ml", help="Levels of mutations in string: 'c90 c80 ...'", metavar="ml")
+    parser.add_argument("-ml", help="Levels of mutations in string: c90 c80 ...", type=str,  metavar="ml", nargs='+')
+    parser.add_argument("-cf", help="Start position for cutting", type=int, default=0, metavar="cf")
+    parser.add_argument("-ct", help="End position for cutting", type=int, default=None, metavar="ct")
     return parser
 
 
@@ -43,4 +47,4 @@ if __name__ == "__main__":
     parser = create_parser()
     ns = parser.parse_args()
 
-    HtmlConsensusController.convert_to_mutations(ns.input, ns.output, ns.ml.split())
+    HtmlConsensusController.convert_to_mutations(ns.input, ns.output, ns.ml, ns.cf, ns.ct)

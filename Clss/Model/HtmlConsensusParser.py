@@ -4,7 +4,7 @@ from html.parser import HTMLParser
 
 class HtmlConsensusParser(HTMLParser, ABC):
     """
-    Class for converting HTML consensus into string consensus with mutations
+    Class for converting HTML consensus into consensus string and confidence string with information about mutations
     """
 
     def __init__(self):
@@ -31,7 +31,7 @@ class HtmlConsensusParser(HTMLParser, ABC):
 
     def parse_html_consensus(self, html_consensus, levels_of_confidence):
         """
-        Parse html consensus and convert it into string with mutations marked as '*'
+        Parse html consensus and convert it into consensus string and confidence string with information about mutations
         :param html_consensus: string, html consensus
         :param levels_of_confidence: list, classes of confidence that we do not consider be mutations ['c90', 'c80']
         :return: string, consensus with mutations
