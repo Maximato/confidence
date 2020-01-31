@@ -81,7 +81,7 @@ class Alignment:
         consensus = self.get_consensus(counts=counts)
         str_consensus = consensus.get_str_consensus(ignore_gaps=False)
 
-        k = 0
+        k = 1
         for seq in seqs:
             print(f"calculated {k} from {len(seqs)}")
             k += 1

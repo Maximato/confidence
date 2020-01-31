@@ -76,8 +76,7 @@ Using consensus:
 
 -i, --input (align.fasta) - the result of alignment of sequences in fasta format;
 -s, --seqs (seqs.fasta) - file with short sequences in fasta format;
--o, --output (output) - name of the output file containing the new consensus;
--f, --format (format) - output file format (“html” or “fasta”).
+-o, --output (output) - name of the output directory containing the new consensus;
 
 Using unite:
 
@@ -147,8 +146,11 @@ This script is used to convert a consensus sequence in html format to a string
 sequence in which all unreliable positions (with frequent mutations) are marked 
 with a special symbol *.
 
-	python3 mutate.py –i consensus.html – o output.fasta –ml “c90 c80”
+    python3 mutate.py –i consensus.html – o output.fasta –ml c90 c80
 
 -i, --input (consensus.html) - html file containing consensus;
 -o, --output (output.fasta) - output file name, fasta format;
 -ml - levels of nucleotide occurrence, below which nucleotides are noted as mutations.
+-cf - start position for cutting
+-ct - end position for cutting
+-fmt - format of out file: fasta or pe

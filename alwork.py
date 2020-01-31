@@ -24,8 +24,7 @@ Using consensus:
 
 -i, --input (align.fasta) - the result of alignment of sequences in fasta format;
 -s, --seqs (seqs.fasta) - file with short sequences in fasta format;
--o, --output (output) - name of the output file containing the new consensus;
--f, --format (format) - output file format (“html” or “fasta”).
+-o, --output (output) - name of the output directory containing the new consensus;
 
 Using unite:
 
@@ -79,9 +78,7 @@ def create_parser():
                                                          "genome and short sequences (not complete genome)")
     consensus_parser.add_argument("-i", "--input", help="Input align file", metavar="input")
     consensus_parser.add_argument("-s", "--seqs", help="Fasta file with sequences", metavar="seqs")
-    consensus_parser.add_argument("-o", "--output", help="Output file", metavar="output")
-    consensus_parser.add_argument("-f", "--format", help="Format of output file ('html', 'fasta')", default="html",
-                                  metavar="format")
+    consensus_parser.add_argument("-o", "--output", help="Output directory", metavar="output")
 
     # 3. add parser of uniting aligns into one file
     unite_parser = subparsers.add_parser("unite", help="unite aligns from fasta files into one as consensuses",
@@ -108,7 +105,7 @@ if __name__ == "__main__":
     if ns.command == "convert":
         ac.convert_in_all_combinations(ns.input, ns.output, ns.prefix)
     elif ns.command == "consensus":
-        ac.consensus_with(ns.input, ns.seqs, ns.output, ns.format)
+        ac.consensus_with(ns.input, ns.seqs, ns.output)
     elif ns.command == "unite":
         ac.unite_aligns(ns.input, ns.output, ns.flength, ns.ig, ns.il)
     else:

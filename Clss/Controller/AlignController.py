@@ -65,7 +65,7 @@ class AlignController:
         ConsensusWriter(consensus_part).write_all(outdir, prefix + "_P", lig)
 
     @staticmethod
-    def consensus_with(align_file, seqs_file, outfile, fmt="html"):
+    def consensus_with(align_file, seqs_file, outdir):
         """
         Get new consensus based on aligning of complete genomes and short sequences from database. This function
         calculate consensus taking into account all data from nucleotide database (genomes and other shorter sequences)
@@ -74,14 +74,13 @@ class AlignController:
 
         :param align_file: filename of aligning complete genomes in fasta format
         :param seqs_file: filename with short sequences in fasta
-        :param outfile: outfile name
-        :param fmt: format of outfile name ('fasta' or 'html')
+        :param outdir: outdir name
         """
         align = AlignController.__get_alignment_from(align_file)
         recs = Extractor.extract_records(seqs_file)
         seqs = [r.seq for r in recs]
         new_consensus = align.consensus_with(seqs, full_length=True)
-        ConsensusWriter(new_consensus).write(outfile, fmt=fmt)
+        ConsensusWriter(new_consensus).write_all(outdir, "reconsensused", 0.9)
 
     @staticmethod
     def unite_aligns(dirname, outfile, full_length, ignore_gaps=False, ignore_level=0.9):
