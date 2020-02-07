@@ -1,6 +1,7 @@
 import numpy as np
 from Bio import pairwise2
 import time
+import random
 
 
 class Records:
@@ -58,6 +59,9 @@ class Records:
                     fseqs.append(record)
         print("Number of sequences after filtrating: ", len(fseqs))
         return fseqs
+
+    def get_random_seqs(self, number_of_random_seqs):
+        return random.sample(self.records, number_of_random_seqs)
 
     def create_dist_matrix(self):
         """

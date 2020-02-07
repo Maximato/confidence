@@ -36,3 +36,16 @@ class RecordsController:
         records = Records(Extractor.extract_records(filename))
         fseqs = records.filtr_organism_by_size(organism, minsize, maxsize)
         RecordsWriter(fseqs).write_to(out_file)
+
+    @staticmethod
+    def get_random(filename, out_file, number_of_random_seqs):
+        """
+        Choosing 'number_of_random_seqs' sequences from input file
+
+        :param filename: filename with sequences in fasta
+        :param out_file: out filename
+        :param number_of_random_seqs: number of random sequence to choose from input file
+        """
+        records = Records(Extractor.extract_records(filename))
+        random_seqs = records.get_random_seqs(number_of_random_seqs)
+        RecordsWriter(random_seqs).write_to(out_file)

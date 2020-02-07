@@ -138,6 +138,15 @@ between samples that are combined into one cluster;
 This includes the point itself;
 -d, --dm - (optional, defaults to None) distance matrix.
 
+Using random:
+
+    python3 opseq.py random –i sequences.fasta –o outfile –organism TBEV –n 300
+
+-i, --input (sequences.fasta) - a file in fasta format containing the sequences
+to be studied;
+-o, --output (outfile) - the name of the output file;
+-n, --number (number) - number of random sequence to choose from input file
+
 -----------------------------------------------------------------------------------
 Script mutate.py
 -----------------------------------------------------------------------------------

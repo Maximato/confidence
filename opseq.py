@@ -43,6 +43,15 @@ between samples that are combined into one cluster;
 (or total weight) in a neighborhood for a point to be considered as a core point.
 This includes the point itself;
 -d, --dm - (optional, defaults to None) distance matrix.
+
+Using random:
+
+    python3 opseq.py random –i sequences.fasta –o outfile –organism TBEV –n 300
+
+-i, --input (sequences.fasta) - a file in fasta format containing the sequences
+to be studied;
+-o, --output (outfile) - the name of the output file;
+-n, --number (number) - number of random sequence to choose from input file
 """
 
 
@@ -98,6 +107,15 @@ def create_parser():
                                                          "This includes the point itself.", default=2, type=int,
                               metavar="minsamples")
     clust_parser.add_argument("-d", "--dm", help="Distance matrix for input data records", default=None, metavar="dm")
+
+    # add parser of getting random
+    random_parser = subparsers.add_parser("random", help="getting random sequences",
+                                          description="getting random sequences")
+    random_parser.add_argument("-i", "--input", help="Input file with sequences (.fasta)", metavar="input")
+    random_parser.add_argument("-o", "--output", help="Output directory for saving data", metavar="output")
+    random_parser.add_argument("-n", "--number", help="Number of random sequence to choose from input file", type=int,
+                               metavar="number")
+
     return parser
 
 
@@ -113,5 +131,7 @@ if __name__ == "__main__":
         rc.filtrating(ns.input, ns.output, ns.organism, ns.mins, ns.maxs)
     elif ns.command == "clust":
         ClusterisationController.clusterization(ns.input, ns.output, ns.eps, ns.minsamples, ns.dm)
+    elif ns.command == "random":
+        rc.get_random(ns.input, ns.output, ns.number)
     else:
         parser.print_help()
