@@ -93,6 +93,13 @@ def create_parser():
     filtr_parser.add_argument("--mins", help="Minimal size of sequence", type=int, metavar="mins")
     filtr_parser.add_argument("--maxs", help="Maximal size of sequence", type=int, metavar="maxs")
 
+    # add parser of node filtrating function
+    filtr_parser = subparsers.add_parser("nfiltr", help="Filtrating nodes by depth of coverage",
+                                         description="Filtrating nodes by depth of coverage")
+    filtr_parser.add_argument("-i", "--input", help="Input file with sequences (.fasta)", metavar="input")
+    filtr_parser.add_argument("-o", "--output", help="Output file with filtrated sequences", metavar="output")
+    filtr_parser.add_argument("--minc", help="Minimal depth of coverage", metavar="minc", type=float)
+
     # add parser of clusterisation
     clust_parser = subparsers.add_parser("clust", help="clusterization of sequences. "
                                                        "Visualisation and saving of clusters into files.",
@@ -129,6 +136,8 @@ if __name__ == "__main__":
         rc.grouping(ns.input, ns.output, ns.minsog, ns.maxsog)
     elif ns.command == "filtr":
         rc.filtrating(ns.input, ns.output, ns.organism, ns.mins, ns.maxs)
+    elif ns.command == "nfiltr":
+        rc.node_filtrating(ns.input, ns.output, ns.minc)
     elif ns.command == "clust":
         ClusterisationController.clusterization(ns.input, ns.output, ns.eps, ns.minsamples, ns.dm)
     elif ns.command == "random":

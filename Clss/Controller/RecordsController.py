@@ -38,6 +38,19 @@ class RecordsController:
         RecordsWriter(fseqs).write_to(out_file)
 
     @staticmethod
+    def node_filtrating(filename, out_file, min_cov):
+        """
+        Filtrating NODES by depth of coverage
+
+        :param filename: filename with sequences in fasta
+        :param out_file: out filename
+        :param min_cov: minimal depth of coverage
+        """
+        records = Records(Extractor.extract_records(filename))
+        fseqs = records.filtr_by_coverage(min_cov)
+        RecordsWriter(fseqs).write_to(out_file)
+
+    @staticmethod
     def get_random(filename, out_file, number_of_random_seqs):
         """
         Choosing 'number_of_random_seqs' sequences from input file

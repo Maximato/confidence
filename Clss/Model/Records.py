@@ -60,6 +60,21 @@ class Records:
         print("Number of sequences after filtrating: ", len(fseqs))
         return fseqs
 
+    def filtr_by_coverage(self, min_cov):
+        """
+        Filtrating NODES by depth of coverage
+
+        :param min_cov: minimal depth of coverage
+        """
+        print("Initially number of sequences: ", len(self.records))
+        fseqs = []
+        for record in self.records:
+            cov = float(record.description.split("cov_")[-1])
+            if cov > min_cov:
+                fseqs.append(record)
+        print("Number of sequences after filtrating: ", len(fseqs))
+        return fseqs
+
     def get_random_seqs(self, number_of_random_seqs):
         return random.sample(self.records, number_of_random_seqs)
 
